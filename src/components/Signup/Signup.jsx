@@ -1,20 +1,51 @@
 import React, { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { RxAvatar } from 'react-icons/rx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { server } from '../../server';
+import { toast } from 'react-toastify';
 import styles from '../../styles/styles';
+import axios from 'axios'
 const Signup = () => {
     const [email, setEmail] = useState("");
-    const [name, setName] = useState("")
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
-    const [avatar, setAvatar] = useState("")
     const [visible, setVisible] = useState(false);
-    const handleSubmit = () => {
+    const [avatar, setAvatar] = useState(null);
+    const navigate = useNavigate()
 
-    }
     const handleFileUploadChange = (e) => {
         const file = e.target.files[0];
         setAvatar(file)
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                withCredentials: true
+            }
+        };
+        const newForm = new FormData();
+
+        newForm.append("avatar", avatar);
+        newForm.append("name", name);
+        newForm.append("email", email);
+        newForm.append("password", password);
+        /*   const formData = {
+              name, email, password, avatar
+          } */
+        await axios.post(`${server}/user/create-user`, newForm, config).then((res) => {
+            if (res.data.success) {
+                toast.success(res.data.message);
+                setName("");
+                setEmail("");
+                setPassword("");
+                setAvatar();
+            }
+        }).catch((err) => {
+            toast.error(err.response.data.message)
+        })
     }
     return (
         <div className='min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
@@ -23,7 +54,7 @@ const Signup = () => {
             </div>
             <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md bg-white'>
                 <div className='py-8 px-4 shadow-lg sm:rounded-lg sm:px-10'>
-                    <form className="space-y-6">
+                    <form encType="multipart/form-data" onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label htmlFor='name' className='block text-sm font-medium text-gray-600'>Full Name</label>
                             <div className='mt-1'>
