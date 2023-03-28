@@ -48,7 +48,7 @@ const Header = ({ activeHeading = 1 }) => {
 
                     </div>
                     <div className='w-[50%] relative'>
-                        <input className='h-[40px] w-full px-2 border-black border-[2px] rounded-md' placeholder='Search Product....' type="text" onChange={handleSearchData} />
+                        <input className='h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md' placeholder='Search Product....' type="text" onChange={handleSearchData} />
                         <AiOutlineSearch
                             size={30}
                             className="absolute right-2 top-1.5 cursor-pointer"
