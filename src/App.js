@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage } from './Routes.js'
+import { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage } from './Routes.js'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
@@ -21,6 +21,7 @@ function App() {
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/activation/:activation_token" element={<ActivationPage />} />
         <Route path="/products" element={<ProductPage />} />
+        <Route path="/best-selling" element={<BestSellingPage />} />
 
       </Routes>
       <ToastContainer
