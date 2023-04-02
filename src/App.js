@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import store from "./redux/store.js";
 import { loadUser } from "./redux/actions/user.js";
 import { useSelector } from "react-redux";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 
 
 function App() {
@@ -25,7 +26,10 @@ function App() {
         <Route path="/best-selling" element={<BestSellingPage />} />
         <Route path="/events" element={<EventPage />} />
         <Route path="/faq" element={<FAQPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile" element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}> <ProfilePage /> </ProtectedRoute>
+
+        } />
 
       </Routes>
       <ToastContainer
