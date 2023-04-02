@@ -7,7 +7,7 @@ const DropDown = ({ categoriesData, setDropDown }) => {
   const submitHandle = (i) => {
     navigate(`/products?category=${i.title}`);
     setDropDown(false);
-    window.location.reload();
+    window.location.reload(true);
   };
   return (
     <div className="pb-3 w-[270px] bg-[#fff] absolute z-30 rounded-b-md shadow-sm">

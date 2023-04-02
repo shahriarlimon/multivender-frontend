@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import Header from '../components/layout/Header'
 import ProductCard from '../components/Route/ProductCart/ProductCard'
 import { productData } from '../static/data'
@@ -25,10 +24,6 @@ const BestSellingPage = () => {
                     }
 
                 </div>
-                {
-                    data && data.length === 0 ? (<h1 className='text-center w-full pb-[110px] text-[20px]  '>No products found</h1>) : null
-                }
-
             </div>
         </div>
     )
