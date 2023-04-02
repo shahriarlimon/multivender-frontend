@@ -8,7 +8,7 @@ const ProfilePage = () => {
         <div>
             <Header />
             <Profile />
-            <Footer />
+           {/*  <Footer /> */}
         </div>
     )
 }
