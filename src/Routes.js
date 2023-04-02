@@ -7,4 +7,5 @@ import BestSellingPage from "./pages/BestSellingPage";
 import EventPage from "./pages/EventPage";
 import FAQPage from "./pages/FAQPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
-export { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage }
+import ProfilePage from "./pages/ProfilePage";
+export { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage }
