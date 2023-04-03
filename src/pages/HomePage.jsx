@@ -11,7 +11,7 @@ import Sponsors from '../components/Route/Sponsors/Sponsors';
 const HomePage = () => {
   return (
     <div>
-      <Header  />
+      <Header activeHeading={1}  />
       <Hero />
       <Category />
       <BestDeals />

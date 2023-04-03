@@ -52,7 +52,7 @@ const ProfileContent = ({ active }) => {
                 </div>
                 <div className='800px:w-[50%] w-[100%] '>
                   <label className="block pb-2">Email Address</label>
-                  <input onChange={(e) => setEmail(e.target.value)} required value={email} type={"text"} className={`${styles.input} !w-[95%]`} />
+                  <input onChange={(e) => setEmail(e.target.value)} required value={email} type={"text"} className={`${styles.input} !w-[95%] `} />
                 </div>
 
               </div>
