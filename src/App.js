@@ -1,18 +1,22 @@
 import { Routes, Route } from "react-router-dom";
-import { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage } from './Routes.js'
+import { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage } from './Routes.js'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
 import store from "./redux/store.js";
 import { loadUser } from "./redux/actions/user.js";
-import { useSelector } from "react-redux";
-import ProtectedRoute from "./ProtectedRoute.jsx";
+import { loadSeller } from "./redux/actions/seller.js";
+import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
+import SellerProtectedRoute from "./Routes/SellerProtectedRoute.jsx";
+
 
 
 function App() {
-  const { loading, isAuthenticated } = useSelector((state) => state.user);
+
+
   useEffect(() => {
     store.dispatch(loadUser())
+    store.dispatch(loadSeller())
   }, [])
   return (
     <>
@@ -21,15 +25,23 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/activation/:activation_token" element={<ActivationPage />} />
+        <Route path="/seller/activation/:activation_token" element={<SellerActivationPage />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/product/:name" element={<ProductDetailsPage />} />
         <Route path="/best-selling" element={<BestSellingPage />} />
         <Route path="/events" element={<EventPage />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/profile" element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}> <ProfilePage /> </ProtectedRoute>
-
+          <ProtectedRoute> <ProfilePage /> </ProtectedRoute>
         } />
+        <Route path="/shop-create" element={<ShopCreatePage />} />
+        <Route path="/shop-login" element={<ShopLoginPage />} />
+        <Route path="/shop/:id" element={
+          <SellerProtectedRoute>
+            <ShopHomePage />
+          </SellerProtectedRoute>
+        } />
+
 
       </Routes>
       <ToastContainer

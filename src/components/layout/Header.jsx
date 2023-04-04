@@ -293,13 +293,8 @@ const Header = ({ activeHeading }) => {
                                 </>
                             )}
                         </div>
-
                     </div>
-
-
                 </div>}
-
-
             </div>
         </>
 

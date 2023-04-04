@@ -8,4 +8,9 @@ import EventPage from "./pages/EventPage";
 import FAQPage from "./pages/FAQPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import ProfilePage from "./pages/ProfilePage";
-export { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage }
+import ShopCreatePage from "./pages/ShopCreatePage";
+import SellerActivationPage from "./pages/SellerActivationPage";
+import ShopLoginPage from "./pages/ShopLoginPage";
+import ShopHomePage from "./pages/ShopHomePage";
+
+export { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage }
