@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage } from './Routes.js'
+import { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage } from './Routes/Routes.js'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
@@ -8,6 +8,7 @@ import { loadUser } from "./redux/actions/user.js";
 import { loadSeller } from "./redux/actions/seller.js";
 import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
 import SellerProtectedRoute from "./Routes/SellerProtectedRoute.jsx";
+import { ShopDashboardPage } from "./Routes/ShopRoutes.jsx";
 
 
 
@@ -39,6 +40,11 @@ function App() {
         <Route path="/shop/:id" element={
           <SellerProtectedRoute>
             <ShopHomePage />
+          </SellerProtectedRoute>
+        } />
+        <Route path="/dashboard" element={
+          <SellerProtectedRoute>
+            <ShopDashboardPage />
           </SellerProtectedRoute>
         } />
 
