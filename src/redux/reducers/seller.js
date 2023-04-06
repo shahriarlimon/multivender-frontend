@@ -17,7 +17,7 @@ export const sellerReducer = createReducer(initialState, {
         state.isAuthenticated = false;
         state.error = action.payload;
     },
-    ClearErrors: (state) => {
+    clearErrors: (state) => {
         state.error = null;
     }
 })
