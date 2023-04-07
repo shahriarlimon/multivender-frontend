@@ -56,7 +56,7 @@ const DashboardSidebar = ({ active }) => {
         <Link className='w-full flex items-center' to="/dashboard-create-event">
           <VscNewFile size={30} color={`${active === 6 ? "crimson" : "#555"}`} />
           <h5 className={`800px:block hidden pl-2 text-[18px] font-[400] ${active === 6 ? " text-[crimson]" : "text-[#555]"}`}>
-            All Events
+            Create Event
           </h5>
         </Link>
       </div>

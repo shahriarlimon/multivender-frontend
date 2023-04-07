@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { server } from '../../server';
 
-/* loaduser */
+/* create product */
 export const createProduct = (newForm) => async (dispatch) => {
     try {
         dispatch({
