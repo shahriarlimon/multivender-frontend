@@ -8,7 +8,7 @@ import { loadUser } from "./redux/actions/user.js";
 import { loadSeller } from "./redux/actions/seller.js";
 import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
 import SellerProtectedRoute from "./Routes/SellerProtectedRoute.jsx";
-import { ShopAllEventsPage, ShopAllProductsPage, ShopCreateProductPage, ShopDashboardPage, ShopEventPage, } from "./Routes/ShopRoutes.jsx";
+import { ShopAllCouponsPage, ShopAllEventsPage, ShopAllProductsPage, ShopCreateProductPage, ShopDashboardPage, ShopEventPage, } from "./Routes/ShopRoutes.jsx";
 
 
 
@@ -65,6 +65,11 @@ function App() {
         <Route path="/dashboard-events" element={
           <SellerProtectedRoute>
             <ShopAllEventsPage />
+          </SellerProtectedRoute>
+        } />
+        <Route path="/dashboard-coupons" element={
+          <SellerProtectedRoute>
+            <ShopAllCouponsPage />
           </SellerProtectedRoute>
         } />
       </Routes>
