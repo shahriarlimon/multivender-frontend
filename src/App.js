@@ -8,7 +8,8 @@ import { loadUser } from "./redux/actions/user.js";
 import { loadSeller } from "./redux/actions/seller.js";
 import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
 import SellerProtectedRoute from "./Routes/SellerProtectedRoute.jsx";
-import { ShopAllCouponsPage, ShopAllEventsPage, ShopAllProductsPage, ShopCreateProductPage, ShopDashboardPage, ShopEventPage, } from "./Routes/ShopRoutes.jsx";
+import { ShopAllCouponsPage, ShopAllEventsPage, ShopAllProductsPage, ShopCreateProductPage, ShopDashboardPage, ShopEventPage, ShopPreviewPage, } from "./Routes/ShopRoutes.jsx";
+import { getAllProducts } from "./redux/actions/product.js";
 
 
 
@@ -18,6 +19,7 @@ function App() {
   useEffect(() => {
     store.dispatch(loadUser())
     store.dispatch(loadSeller())
+    store.dispatch(getAllProducts())
   }, [])
   return (
     <>
@@ -35,6 +37,7 @@ function App() {
         <Route path="/profile" element={
           <ProtectedRoute> <ProfilePage /> </ProtectedRoute>
         } />
+        <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
         <Route path="/shop-create" element={<ShopCreatePage />} />
         <Route path="/shop-login" element={<ShopLoginPage />} />
         <Route path="/shop/:id" element={

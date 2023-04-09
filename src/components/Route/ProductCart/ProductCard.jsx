@@ -3,6 +3,7 @@ import { AiFillHeart, AiFillStar, AiOutlineEye, AiOutlineHeart, AiOutlineShoppin
 import { Link } from 'react-router-dom'
 import styles from '../../../styles/styles';
 import ProductDetailsCard from '../ProductDetailsCard/ProductDetailsCard';
+import { backend_url } from '../../../server';
 
 const ProductCard = ({ product }) => {
     const [click, setClick] = useState(false);
@@ -15,7 +16,7 @@ const ProductCard = ({ product }) => {
                 <div className='flex justify-end'>
                 </div>
                 <Link to={`/product/${product_name}`}>
-                    <img className='w-full h-[170px] object-contain ' alt='' src={product.image_Url[0].url} />
+                    <img className='w-full h-[170px] object-contain ' alt='' src={`${backend_url}${product.images && product.images[0]}`} />
                 </Link>
                 <Link className={`${styles.shop_name}`} to={"/"}>
                     {product.shop.name}
@@ -33,17 +34,17 @@ const ProductCard = ({ product }) => {
                     </div>
                     <div className='flex py-2 items-center justify-between'>
                         <div className='flex'>
-                            <h5 className={`${styles.productDiscountPrice}`}>{product.price === 0 ? product.price : product.discount_price} $</h5>
+                            <h5 className={`${styles.productDiscountPrice}`}>{product.originalPrice === 0 ? product.originalPrice : product.discountPrice} $</h5>
                             <h4 className={`${styles.price}`}>
                                 {
-                                    product.price ? product.price + "$" : null
+                                    product.originalPrice ? product.originalPrice + "$" : null
                                 }
                             </h4>
 
                         </div>
                         <span className='font-[400] text-[17px] text-[#68d284]'>
                             {
-                                product.total_sell
+                                product.sold_out
                             } sold
                         </span>
 

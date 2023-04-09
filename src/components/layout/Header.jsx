@@ -26,12 +26,13 @@ const Header = ({ activeHeading }) => {
     const [openCart, setOpenCart] = useState(false);
     const [openWishlist, setOpenWishlist] = useState(false);
     const [open, setOpen] = useState(false);
+    const { allProducts } = useSelector((state) => state.products)
 
 
     const handleSearchData = (e) => {
         const term = e.target.value;
         setSearchTerms(term);
-        const filteredProducts = productData.filter((product) =>
+        const filteredProducts = allProducts.filter((product) =>
             product.name.toLowerCase().includes(term.toLowerCase())
         );
         setSearchData(filteredProducts);
@@ -78,7 +79,7 @@ const Header = ({ activeHeading }) => {
                                                     <Link to={`/product/${Product_name}`}>
                                                         <div className="w-full flex items-start-py-3">
                                                             <img
-                                                                src={i.image_Url[0].url}
+                                                                src={`${backend_url}${i.images[0]}`}
                                                                 alt=""
                                                                 className="w-[40px] h-[40px] mr-[10px]"
                                                             />

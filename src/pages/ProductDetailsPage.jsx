@@ -5,15 +5,17 @@ import Header from '../components/layout/Header'
 import ProductDetails from '../components/Product/ProductDetails'
 import SuggestedProducts from '../components/Product/SuggestedProducts'
 import { productData } from '../static/data'
+import { useSelector } from 'react-redux'
 
 const ProductDetailsPage = () => {
     const { name } = useParams();
     const [product, setProduct] = useState(null);
+    const { allProducts } = useSelector((state) => state.products)
     const productName = name.replace(/-/g, " ");
     useEffect(() => {
-        const data = productData.find((i) => i.name === productName);
+        const data = allProducts?.find((i) => i.name === productName);
         setProduct(data)
-    }, [productName])
+    }, [allProducts, productName])
     return (
         <div>
             <Header />

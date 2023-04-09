@@ -18,14 +18,14 @@ export const productReducer = createReducer(initialState, {
         state.success = false
     },
 
-    getProductsRequest: (state, action) => {
+    getShopProductsRequest: (state, action) => {
         state.loading = true
     },
-    getProductsSuccess: (state, action) => {
+    getShopProductsSuccess: (state, action) => {
         state.loading = false
         state.products = action.payload
     },
-    getProductsFail: (state, action) => {
+    getShopProductsFail: (state, action) => {
         state.loading = false;
         state.error = action.payload
     },
@@ -39,6 +39,18 @@ export const productReducer = createReducer(initialState, {
     deleteProductFail: (state, action) => {
         state.loading = false;
         state.error = action.payload
+    },
+    // get all products
+    getAllProductsRequest: (state) => {
+        state.loading = true;
+    },
+    getAllProductsSuccess: (state, action) => {
+        state.loading = false;
+        state.allProducts = action.payload;
+    },
+    getAllProductsFailed: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
     },
     clearErrors: (state) => {
         state.error = null;

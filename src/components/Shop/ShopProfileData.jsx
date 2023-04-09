@@ -1,11 +1,21 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { productData } from '../../static/data'
 import styles from '../../styles/styles'
 import ProductCard from '../Route/ProductCart/ProductCard'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllShopProducts } from '../../redux/actions/product'
 
 const ShopProfileData = ({ isOwner }) => {
-    const [active, setActive] = useState(1)
+    const [active, setActive] = useState(1);
+    const { products } = useSelector((state) => state.products);
+    const { id } = useParams()
+    const dispatch = useDispatch();
+ 
+    useEffect(() => {
+        dispatch(getAllShopProducts(id));
+    }, [dispatch, id])
+
     return (
         <div className='w-full '>
             <div className='flex w-full items-center'>
@@ -23,11 +33,11 @@ const ShopProfileData = ({ isOwner }) => {
                 <div>
                     {
                         isOwner && (<div className={``}>
-                            <Link to={"/dashboard"}> 
-                            <div className={`${styles.button} !rounded-[4px] !h-[42px] `}>
-                                <span className='text-white'>Go Dashboard</span>
+                            <Link to={"/dashboard"}>
+                                <div className={`${styles.button} !rounded-[4px] !h-[42px] `}>
+                                    <span className='text-white'>Go Dashboard</span>
 
-                            </div>
+                                </div>
                             </Link>
                         </div>)
                     }
@@ -36,7 +46,7 @@ const ShopProfileData = ({ isOwner }) => {
             <br />
             <div className='grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[25px] mb-12 border-0'>
                 {
-                    productData && productData.map((product, index) => <ProductCard key={index} product={product} />)
+                    products && products.map((product, index) => <ProductCard key={index} product={product} />)
                 }
             </div>
         </div>

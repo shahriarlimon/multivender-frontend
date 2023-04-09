@@ -30,7 +30,7 @@ export const createProduct = (newForm) => async (dispatch) => {
 export const getAllShopProducts = (id) => async (dispatch) => {
     try {
         dispatch({
-            type: "getProductsRequest"
+            type: "getShopProductsRequest"
         })
         const config = {
             headers: {
@@ -40,12 +40,36 @@ export const getAllShopProducts = (id) => async (dispatch) => {
         };
         const { data } = await axios.get(`${server}/product/get-all-product-shop/${id}`, config);
         dispatch({
-            type: "getProductsSuccess",
+            type: "getShopProductsSuccess",
             payload: data.products
         })
     } catch (error) {
         dispatch({
-            type: "getProductsFail",
+            type: "getShopProductsFail",
+            payload: error.response.data.message
+        })
+    }
+}
+/* get all shop products */
+export const getAllProducts = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: "getAllProductsRequest"
+        })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                "withCredentials": true
+            }
+        };
+        const { data } = await axios.get(`${server}/product/get-all-products`, config);
+        dispatch({
+            type: "getAllProductsSuccess",
+            payload: data.products
+        })
+    } catch (error) {
+        dispatch({
+            type: "getAllProductsFailed",
             payload: error.response.data.message
         })
     }

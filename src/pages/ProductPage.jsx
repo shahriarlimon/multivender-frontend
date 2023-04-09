@@ -2,24 +2,25 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Header from '../components/layout/Header'
 import ProductCard from '../components/Route/ProductCart/ProductCard'
-import { productData } from '../static/data'
 import styles from '../styles/styles'
+import { useSelector } from 'react-redux'
 
 const ProductPage = () => {
   const [searchParams] = useSearchParams();
+  const { allProducts } = useSelector((state) => state.products)
   const categoryData = searchParams.get("category");
   const [data, setData] = useState([]);
   useEffect(() => {
     if (categoryData === null) {
-      const d = productData && productData.sort((a, b) =>
-        a.total_sell - b.total_sell
-      );
-      setData(d)
+      /*  const d = allProducts && allProducts.sort((a, b) =>
+         a?.sold_out - b?.sold_out
+       ); */
+      setData(allProducts)
     } else {
-      const d = productData && productData.filter((i) => i.category === categoryData);
+      const d = allProducts && allProducts.filter((i) => i.category === categoryData);
       setData(d)
     }
-  }, [categoryData])
+  }, [categoryData, allProducts])
   return (
     <div>
       <Header activeHeading={3} />
@@ -28,7 +29,7 @@ const ProductPage = () => {
       <div className={`${styles.section}`}>
         <div className='grid grid-cols-1 gap-[20px] md:grid-cols-2 mg:gap-[25px] lg:grid-cols-4 lg:gap-[25px] xl:gridi-cols-5 xl:gap-[30px] mb-12'>
           {
-            data && data.map((product, index) => <ProductCard key={index} product={product} />)
+            data && data?.map((product, index) => <ProductCard key={index} product={product} />)
           }
 
         </div>

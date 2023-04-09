@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillHeart, AiOutlineHeart, AiOutlineMessage, AiOutlineShoppingCart } from 'react-icons/ai';
 import { RxCross1 } from 'react-icons/rx'
 import styles from '../../../styles/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllShopProducts } from '../../../redux/actions/product';
+import { backend_url } from '../../../server';
 
 const ProductDetailsCard = ({ setOpen, product }) => {
     const [count, setCount] = useState(1);
     const [click, setClick] = useState(false);
     const [select, setSelect] = useState(false);
+
+    const { products } = useSelector((state) => state.products);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getAllShopProducts(product && product.shop._id));
+    }, [dispatch, product])
+
     const handleMessageSubmit = () => {
 
     }
@@ -27,9 +37,9 @@ const ProductDetailsCard = ({ setOpen, product }) => {
                         <RxCross1 size={30} className="absolute right-3 top-3 z-50" onClick={() => setOpen(false)} />
                         <div className='block w-full 800px:flex'>
                             <div className='w-full 800px:w-[50%]'>
-                                <img src={product.image_Url[0].url} alt='' />
+                                <img className="w-[80%]" src={`${backend_url}${product && product.images[0]}`} alt='' />
                                 <div className='flex'>
-                                    <img className='w-[50px] h-[50px] rounded-full mr-2' src={product.shop.shop_avatar.url} alt='' />
+                                    <img className='w-[50px] h-[50px] rounded-full mr-2' src={`${backend_url}${product?.shop?.avatar}`} alt='' />
                                     <div>
                                         <h3 className={`${styles.shop_name}`}>{product.shop.name}</h3>
                                         <h5 className="pb-3 text-[15px]">({product.shop.ratings}) Ratings</h5>
@@ -38,15 +48,15 @@ const ProductDetailsCard = ({ setOpen, product }) => {
                                 <div onClick={handleMessageSubmit} className={`${styles.button} bg-black mt-4 rounded-[4px] h-11`}>
                                     <span className='text-white text-sm flex items-center'>Send Message <AiOutlineMessage className='ml-1' /></span>
                                 </div>
-                                <h5 className='text-[16px] text-[red] mt-4'>({product.total_sell}) Sold out</h5>
+                                <h5 className='text-[16px] text-[red] mt-4'>({product.total_sold}) Sold out</h5>
 
                             </div>
                             <div className='w-full 800px:w-[50%] pt-5 pl-[5px] pr-[5px] '>
-                                <h1 className={`${styles.productTitle} text-[20px]`}>{product.name}</h1>
-                                <p className='text-sm mt-3 text-gray-600'>{product.description}</p>
+                                <h1 className={`${styles.productTitle} text-[20px]`}>{product?.name}</h1>
+                                <p className='text-sm mt-3 text-gray-600'>{product?.description}</p>
                                 <div className='flex pt-3'>
-                                    <h4 className={`${styles.productDiscountPrice}`}>{product.discount_price}$</h4>
-                                    <h3 className={`${styles.price}`}>{product.price ? product.price + "$" : null}</h3>
+                                    <h4 className={`${styles.productDiscountPrice}`}>{product?.discountPrice}$</h4>
+                                    <h3 className={`${styles.price}`}>{product.originalPrice ? product.originalPrice + "$" : null}</h3>
 
                                 </div>
                                 <div className='flex items-center mt-12 justify-between pr-3'>

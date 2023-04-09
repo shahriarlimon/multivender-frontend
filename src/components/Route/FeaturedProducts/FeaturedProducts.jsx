@@ -2,8 +2,10 @@ import React from 'react'
 import { productData } from '../../../static/data'
 import styles from '../../../styles/styles'
 import ProductCard from '../ProductCart/ProductCard'
+import { useSelector } from 'react-redux'
 
 const FeaturedProducts = () => {
+    const { allProducts } = useSelector((state) => state.products)
     return (
         <div>
             <div className={`${styles.section}`}>
@@ -14,7 +16,7 @@ const FeaturedProducts = () => {
                 </div>
                 <div className='grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-5 xl:gap-[30px] mb-12 border-0'>
                     {
-                        productData && productData.map((product, index) => (<ProductCard product={product} key={index} />))
+                        allProducts && allProducts.map((product, index) => (<ProductCard product={product} key={index} />))
                     }
 
                 </div>
