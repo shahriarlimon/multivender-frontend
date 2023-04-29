@@ -5,19 +5,35 @@ import styles from '../../../styles/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllShopProducts } from '../../../redux/actions/product';
 import { backend_url } from '../../../server';
+import { addToCart } from '../../../redux/actions/cart';
+import { toast } from 'react-toastify'
 
 const ProductDetailsCard = ({ setOpen, product }) => {
+    const { cart } = useSelector((state) => state.cart)
     const [count, setCount] = useState(1);
     const [click, setClick] = useState(false);
     const [select, setSelect] = useState(false);
-
-    const { products } = useSelector((state) => state.products);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getAllShopProducts(product && product.shop._id));
     }, [dispatch, product])
 
     const handleMessageSubmit = () => {
+
+    }
+    const addToCartHandler = (id) => {
+        const itemExists = cart && cart.find((i) => i._id === id);
+        if (itemExists) {
+            toast.error("Item already exists");
+        } else {
+            if (product.stock < count) {
+                toast.error("Product stock is limited!")
+            } else {
+                const cartData = { ...product, qty: count }
+                dispatch(addToCart(cartData));
+                toast.success("Item added to the cart")
+            }
+        }
 
     }
     const decrementCount = () => {
@@ -95,7 +111,7 @@ const ProductDetailsCard = ({ setOpen, product }) => {
                                     </div>
 
                                 </div>
-                                <div
+                                <div onClick={() => addToCartHandler(product._id)}
                                     className={`${styles.button} mt-6 rounded-[4px] h-11 flex items-center`}
                                 >
                                     <span className="text-[#fff] flex items-center text-sm">

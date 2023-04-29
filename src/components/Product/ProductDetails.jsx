@@ -3,15 +3,16 @@ import { AiFillHeart, AiOutlineHeart, AiOutlineMessage, AiOutlineShoppingCart } 
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../styles/styles';
 import { backend_url } from '../../server';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../redux/actions/cart';
 
 const ProductDetails = ({ product }) => {
     const { products } = useSelector((state) => state.products);
-    console.log(product)
     const [count, setCount] = useState(1);
     const [click, setClick] = useState(false);
     const [select, setSelect] = useState(0);
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const decrementCount = () => {
         if (count > 1) {
             setCount(count - 1);
@@ -21,6 +22,11 @@ const ProductDetails = ({ product }) => {
     const incrementCount = () => {
         setCount(count + 1);
     };
+    const addToCartHandler = (product) => {
+        dispatch(addToCart(product))
+    }
+
+
     const handleMessageSubmit = () => {
 
     }
@@ -99,7 +105,7 @@ const ProductDetails = ({ product }) => {
                                     </div>
 
                                 </div>
-                                <div
+                                <div onClick={() => addToCartHandler(product)}
                                     className={`${styles.button} !mt-6 !rounded-[4px] !h-11 flex items-center`}
                                 >
                                     <span className="text-[#fff] flex items-center text-sm">

@@ -10,6 +10,7 @@ import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
 import SellerProtectedRoute from "./Routes/SellerProtectedRoute.jsx";
 import { ShopAllCouponsPage, ShopAllEventsPage, ShopAllProductsPage, ShopCreateProductPage, ShopDashboardPage, ShopEventPage, ShopPreviewPage, } from "./Routes/ShopRoutes.jsx";
 import { getAllProducts } from "./redux/actions/product.js";
+import { getAllEvents } from "./redux/actions/event.js";
 
 
 
@@ -20,6 +21,7 @@ function App() {
     store.dispatch(loadUser())
     store.dispatch(loadSeller())
     store.dispatch(getAllProducts())
+    store.dispatch(getAllEvents())
   }, [])
   return (
     <>

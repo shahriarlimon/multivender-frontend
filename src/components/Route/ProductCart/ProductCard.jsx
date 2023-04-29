@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
                 <div className='flex justify-end'>
                 </div>
                 <Link to={`/product/${product_name}`}>
-                    <img className='w-full h-[170px] object-contain ' alt='' src={`${backend_url}${product.images && product.images[0]}`} />
+                    <img className='w-full h-[170px] object-contain' alt='' src={`${backend_url}${product.images && product.images[0]}`} />
                 </Link>
                 <Link className={`${styles.shop_name}`} to={"/"}>
                     {product.shop.name}

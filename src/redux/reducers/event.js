@@ -29,6 +29,17 @@ export const eventReducer = createReducer(initialState, {
         state.loading = false;
         state.error = action.payload
     },
+    getAllEventsRequest: (state, action) => {
+        state.loading = true
+    },
+    getAllEventsSuccess: (state, action) => {
+        state.loading = false;
+        state.allEvents = action.payload
+    },
+    getAllEventsFail: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    },
     deleteEventRequest: (state, action) => {
         state.loading = true
     },
