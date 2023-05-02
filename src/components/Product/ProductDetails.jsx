@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiFillHeart, AiOutlineHeart, AiOutlineMessage, AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../styles/styles';
 import { backend_url } from '../../server';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/actions/cart';
+import { addToWishlist, removeFromWishlist } from '../../redux/actions/wishlist';
+import { toast } from 'react-toastify';
 
 const ProductDetails = ({ product }) => {
     const { products } = useSelector((state) => state.products);
+    const { cart } = useSelector((state) => state.cart)
+    const { wishlist } = useSelector((state) => state.wishlist)
     const [count, setCount] = useState(1);
     const [click, setClick] = useState(false);
     const [select, setSelect] = useState(0);
@@ -22,14 +26,41 @@ const ProductDetails = ({ product }) => {
     const incrementCount = () => {
         setCount(count + 1);
     };
-    const addToCartHandler = (product) => {
-        dispatch(addToCart(product))
+    const addToCartHandler = (id) => {
+        const itemExists = cart && cart.find((i) => i?._id === id);
+        if (itemExists) {
+            toast.error("Item already exists");
+        } else {
+            if (product.stock < count) {
+                toast.error("Product stock is limited!")
+            } else {
+                const cartData = { ...product, qty: count }
+                dispatch(addToCart(cartData));
+                toast.success("Item added to the cart")
+            }
+        }
+
     }
 
 
     const handleMessageSubmit = () => {
 
     }
+    const removeFromWishlistHandler = (product) => {
+        setClick(!click);
+        dispatch(removeFromWishlist(product))
+    }
+    const addToWishlistHandler = (product) => {
+        setClick(!click);
+        dispatch(addToWishlist(product))
+    }
+    useEffect(() => {
+        if (wishlist && wishlist.find((i) => i?._id === product?._id)) {
+            setClick(true)
+        } else {
+            setClick(false)
+        }
+    }, [wishlist, product])
     return (
         <div className='bg-white'>
             {
@@ -105,7 +136,7 @@ const ProductDetails = ({ product }) => {
                                     </div>
 
                                 </div>
-                                <div onClick={() => addToCartHandler(product)}
+                                <div onClick={() => addToCartHandler(product?._id)}
                                     className={`${styles.button} !mt-6 !rounded-[4px] !h-11 flex items-center`}
                                 >
                                     <span className="text-[#fff] flex items-center text-sm">

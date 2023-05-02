@@ -1,15 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiFillHeart, AiFillStar, AiOutlineEye, AiOutlineHeart, AiOutlineShoppingCart, AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom'
 import styles from '../../../styles/styles';
 import ProductDetailsCard from '../ProductDetailsCard/ProductDetailsCard';
 import { backend_url } from '../../../server';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToWishlist, removeFromWishlist } from '../../../redux/actions/wishlist';
 
 const ProductCard = ({ product }) => {
+    const dispatch = useDispatch();
+    const { wishlist } = useSelector((state) => state.wishlist)
     const [click, setClick] = useState(false);
     const [open, setOpen] = useState(false);
     const d = product.name;
-    const product_name = d.replace(/\s+/g, "-")
+    const product_name = d.replace(/\s+/g, "-");
+    const removeFromWishlistHandler = (product) => {
+        setClick(!click);
+        dispatch(removeFromWishlist(product))
+    }
+    const addToWishlistHandler = (product) => {
+        setClick(!click);
+        dispatch(addToWishlist(product))
+    }
+    useEffect(() => {
+        if (wishlist && wishlist.find((i) => i._id === product._id)) {
+            setClick(true)
+        } else {
+            setClick(false)
+        }
+    }, [wishlist, product])
+
     return (
         <>
             <div className='w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer '>
@@ -19,7 +39,7 @@ const ProductCard = ({ product }) => {
                     <img className='w-full h-[170px] object-contain' alt='' src={`${backend_url}${product.images && product.images[0]}`} />
                 </Link>
                 <Link className={`${styles.shop_name}`} to={"/"}>
-                    {product.shop.name}
+                    {product?.shop.name}
                 </Link>
                 <Link to={`/product/${product_name}`}>
                     <h4 className='pb-3 font-[500] text-sm '>
@@ -34,17 +54,17 @@ const ProductCard = ({ product }) => {
                     </div>
                     <div className='flex py-2 items-center justify-between'>
                         <div className='flex'>
-                            <h5 className={`${styles.productDiscountPrice}`}>{product.originalPrice === 0 ? product.originalPrice : product.discountPrice} $</h5>
+                            <h5 className={`${styles.productDiscountPrice}`}>{product?.originalPrice === 0 ? product?.originalPrice : product?.discountPrice} $</h5>
                             <h4 className={`${styles.price}`}>
                                 {
-                                    product.originalPrice ? product.originalPrice + "$" : null
+                                    product?.originalPrice ? product.originalPrice + "$" : null
                                 }
                             </h4>
 
                         </div>
                         <span className='font-[400] text-[17px] text-[#68d284]'>
                             {
-                                product.sold_out
+                                product?.sold_out
                             } sold
                         </span>
 
@@ -56,7 +76,7 @@ const ProductCard = ({ product }) => {
                         <AiFillHeart
                             size={22}
                             className="cursor-pointer absolute right-2 top-5"
-                            onClick={() => setClick(!click)}
+                            onClick={() => removeFromWishlistHandler(product)}
                             color={click ? "red" : "#333"}
                             title="Remove from wishlist"
                         />
@@ -64,7 +84,7 @@ const ProductCard = ({ product }) => {
                         <AiOutlineHeart
                             size={22}
                             className="cursor-pointer absolute right-2 top-5"
-                            onClick={() => setClick(!click)}
+                            onClick={() => addToWishlistHandler(product)}
                             color={click ? "red" : "#333"}
                             title="Add to wishlist"
                         />

@@ -8,7 +8,7 @@ import { backend_url } from '../../../server';
 import { addToCart } from '../../../redux/actions/cart';
 import { toast } from 'react-toastify'
 
-const ProductDetailsCard = ({ setOpen, product }) => {
+const   ProductDetailsCard = ({ setOpen, product }) => {
     const { cart } = useSelector((state) => state.cart)
     const [count, setCount] = useState(1);
     const [click, setClick] = useState(false);
@@ -22,7 +22,7 @@ const ProductDetailsCard = ({ setOpen, product }) => {
 
     }
     const addToCartHandler = (id) => {
-        const itemExists = cart && cart.find((i) => i._id === id);
+        const itemExists = cart && cart.find((i) => i?._id === id);
         if (itemExists) {
             toast.error("Item already exists");
         } else {
@@ -119,11 +119,6 @@ const ProductDetailsCard = ({ setOpen, product }) => {
                                     </span>
                                 </div>
                             </div>
-
-
-
-
-
                         </div>
 
                     </div>
