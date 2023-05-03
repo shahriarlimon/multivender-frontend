@@ -4,18 +4,19 @@ import Footer from '../components/layout/Footer'
 import Header from '../components/layout/Header'
 import ProductDetails from '../components/Product/ProductDetails'
 import SuggestedProducts from '../components/Product/SuggestedProducts'
-import { productData } from '../static/data'
 import { useSelector } from 'react-redux'
 
 const ProductDetailsPage = () => {
-    const { name } = useParams();
-    const [product, setProduct] = useState(null);
     const { allProducts } = useSelector((state) => state.products)
-    const productName = name.replace(/-/g, " ");
+    const [product, setProduct] = useState(null);
+    const { id } = useParams();
+
+
+
     useEffect(() => {
-        const data = allProducts?.find((i) => i.name === productName);
+        const data = allProducts && allProducts.find((i) => i._id === id);
         setProduct(data)
-    }, [allProducts, productName])
+    }, [id, allProducts])
     return (
         <div>
             <Header />

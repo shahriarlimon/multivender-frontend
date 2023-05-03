@@ -9,6 +9,7 @@ import { addToWishlist, removeFromWishlist } from '../../redux/actions/wishlist'
 import { toast } from 'react-toastify';
 
 const ProductDetails = ({ product }) => {
+    console.log(product)
     const { products } = useSelector((state) => state.products);
     const { cart } = useSelector((state) => state.cart)
     const { wishlist } = useSelector((state) => state.wishlist)
@@ -16,7 +17,7 @@ const ProductDetails = ({ product }) => {
     const [click, setClick] = useState(false);
     const [select, setSelect] = useState(0);
     const navigate = useNavigate();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const decrementCount = () => {
         if (count > 1) {
             setCount(count - 1);
@@ -68,7 +69,7 @@ const ProductDetails = ({ product }) => {
                     <div className='w-full py-5'>
                         <div className='block w-full 800px:flex'>
                             <div className='w-full 800px:w-[50%]'>
-                                <img className='w-[75%]' alt='' src={`${backend_url}${product && product.images[select]}`} />
+                                <img className='w-[60%]' alt='' src={`${backend_url}${product && product.images[select]}`} />
                                 <div className='w-full flex'>
                                     {
                                         product && product.images.map((i, index) => (
@@ -120,7 +121,7 @@ const ProductDetails = ({ product }) => {
                                             <AiFillHeart
                                                 size={30}
                                                 className="cursor-pointer"
-                                                onClick={() => setClick(!click)}
+                                                onClick={() => removeFromWishlistHandler(product)}
                                                 color={click ? "red" : "#333"}
                                                 title="Remove from wishlist"
                                             />
@@ -128,7 +129,7 @@ const ProductDetails = ({ product }) => {
                                             <AiOutlineHeart
                                                 size={30}
                                                 className="cursor-pointer"
-                                                onClick={() => setClick(!click)}
+                                                onClick={() => addToWishlistHandler(product)}
                                                 color={click ? "red" : "#333"}
                                                 title="Add to wishlist"
                                             />
@@ -144,9 +145,13 @@ const ProductDetails = ({ product }) => {
                                     </span>
                                 </div>
                                 <div className='flex items-center pt-3'>
-                                    <img className='w-[50px] h-[50px] rounded-full mr-2' src={`${backend_url}${product?.shop?.avatar}`} alt="" />
+                                    <Link to={`/shop/preview/${product?.shop?._id}`}>
+                                        <img className='w-[50px] h-[50px] rounded-full mr-2' src={`${backend_url}${product?.shop?.avatar}`} alt="" />
+                                    </Link>
                                     <div className='pr-8'>
-                                        <h3 className={`${styles.shop_name} pb-1 pt-1`}>{product.shop.name}</h3>
+                                        <Link to={`/shop/preview/${product?.shop?._id}`}>
+                                            <h3 className={`${styles.shop_name} pb-1 pt-1`}>{product.shop.name}</h3>
+                                        </Link>
                                         <h5 className='pb-3 text-[15px]'>{/* ({product?.shop?.ratings}) */} 4/5 Ratings</h5>
                                     </div>
                                     <div onClick={() => handleMessageSubmit()} className={`${styles.button} !bg-[#6443d1] mt-4 !rounded !h-11`}>
@@ -157,9 +162,6 @@ const ProductDetails = ({ product }) => {
                                 </div>
 
                             </div>
-
-
-
                         </div>
 
                     </div>

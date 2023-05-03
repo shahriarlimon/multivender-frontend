@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { AiOutlineArrowRight, AiOutlineCamera, AiOutlineDelete } from 'react-icons/ai'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { backend_url } from '../../server'
 import styles from '../../styles/styles';
 import { Button } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { MdOutlineTrackChanges } from 'react-icons/md'
+import { updateUserInfo } from '../../redux/actions/user'
 
 
 
@@ -15,11 +16,14 @@ const ProfileContent = ({ active }) => {
   const { user } = useSelector((state) => state.user);
   const [name, setName] = useState(user && user.name)
   const [email, setEmail] = useState(user && user.email);
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [zipCode, setZipCode] = useState();
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("")
-  const handleSubmit = () => {
+  const [phoneNumber, setPhoneNumber] = useState(user && user.phoneNumber);
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const userInfo = { name, email, phoneNumber, password };
+    dispatch(updateUserInfo(userInfo))
 
   }
   return (
@@ -44,7 +48,7 @@ const ProfileContent = ({ active }) => {
           <br />
           <br />
           <div className='w-full px-5 '>
-            <form onSubmit={handleSubmit} area-required={true}>
+            <form onSubmit={handleSubmit}>
               <div className='w-full 800px:flex block pb-3'>
                 <div className='800px:w-[50%] w-[100%] mb-2 800px:mb-0'>
                   <label className="block pb-2">Full Name</label>
@@ -62,20 +66,10 @@ const ProfileContent = ({ active }) => {
                   <input onChange={(e) => setPhoneNumber(e.target.value)} required value={phoneNumber} type={"number"} className={`${styles.input} !w-[95%]`} />
                 </div>
                 <div className='800px:w-[50%] w-[100%]'>
-                  <label className="block pb-2">Zip code</label>
-                  <input onChange={(e) => setZipCode(e.target.value)} required value={zipCode} type={"number"} className={`${styles.input} !w-[95%]`} />
+                  <label className="block pb-2">Enter Password</label>
+                  <input onChange={(e) => setPassword(e.target.value)} required value={password} type={"password"} className={`${styles.input} !w-[95%]`} />
                 </div>
 
-              </div>
-              <div className='w-full flex pb-2'>
-                <div className='800px:w-[50%] w-[100%]'>
-                  <label className="block pb-2">Address 1</label>
-                  <input onChange={(e) => setAddress1(e.target.value)} required value={address1} type={"text"} className={`${styles.input} !w-[95%]`} />
-                </div>
-                <div className='800px:w-[50%] w-[100%]'>
-                  <label className="block pb-2">Address 2</label>
-                  <input onChange={(e) => setAddress2(e.target.value)} required value={address2} type={"text"} className={`${styles.input} !w-[95%]`} />
-                </div>
               </div>
               <input className={`w-[250px] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`} type="submit" value="update" />
             </form>

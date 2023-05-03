@@ -74,18 +74,15 @@ const Header = ({ activeHeading }) => {
                                     <div className="absolute min-h-[30vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
                                         {searchData &&
                                             searchData.map((i, index) => {
-                                                const d = i.name;
-
-                                                const Product_name = d.replace(/\s+/g, "-");
                                                 return (
-                                                    <Link to={`/product/${Product_name}`}>
+                                                    <Link to={`/product/${i?._id}`}>
                                                         <div className="w-full flex items-start-py-3">
                                                             <img
-                                                                src={`${backend_url}${i.images[0]}`}
+                                                                src={`${backend_url}${i?.images[0]}`}
                                                                 alt=""
                                                                 className="w-[40px] h-[40px] mr-[10px]"
                                                             />
-                                                            <h1>{i.name}</h1>
+                                                            <h1>{i?.name}</h1>
                                                         </div>
                                                     </Link>
                                                 );

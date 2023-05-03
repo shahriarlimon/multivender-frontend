@@ -45,6 +45,7 @@ const   ProductDetailsCard = ({ setOpen, product }) => {
     const incrementCount = () => {
         setCount(count + 1);
     };
+    
     return (
         <div className='bg-white '>
             {

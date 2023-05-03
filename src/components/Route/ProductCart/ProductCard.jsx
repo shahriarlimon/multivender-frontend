@@ -6,14 +6,28 @@ import ProductDetailsCard from '../ProductDetailsCard/ProductDetailsCard';
 import { backend_url } from '../../../server';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist, removeFromWishlist } from '../../../redux/actions/wishlist';
+import { toast } from 'react-toastify';
+import { addToCart } from '../../../redux/actions/cart';
 
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
+    const { cart } = useSelector((state) => state.cart)
     const { wishlist } = useSelector((state) => state.wishlist)
     const [click, setClick] = useState(false);
+    const [count, setCount] = useState(1);
     const [open, setOpen] = useState(false);
-    const d = product.name;
-    const product_name = d.replace(/\s+/g, "-");
+
+    const incrementCount = () => {
+        setCount(count + 1);
+    };
+
+    const decrementCount = () => {
+        if (count > 1) {
+            setCount(count - 1);
+        }
+    };
+
+
     const removeFromWishlistHandler = (product) => {
         setClick(!click);
         dispatch(removeFromWishlist(product))
@@ -22,6 +36,20 @@ const ProductCard = ({ product }) => {
         setClick(!click);
         dispatch(addToWishlist(product))
     }
+    const addToCartHandler = (id) => {
+        const isItemExists = cart && cart.find((i) => i._id === id);
+        if (isItemExists) {
+            toast.error("Item already in cart!");
+        } else {
+            if (product.stock < 1) {
+                toast.error("Product stock limited!");
+            } else {
+                const cartData = { ...product, qty: count };
+                dispatch(addToCart(cartData));
+                toast.success("Item added to cart successfully!");
+            }
+        }
+    };
     useEffect(() => {
         if (wishlist && wishlist.find((i) => i._id === product._id)) {
             setClick(true)
@@ -35,13 +63,13 @@ const ProductCard = ({ product }) => {
             <div className='w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer '>
                 <div className='flex justify-end'>
                 </div>
-                <Link to={`/product/${product_name}`}>
-                    <img className='w-full h-[170px] object-contain' alt='' src={`${backend_url}${product.images && product.images[0]}`} />
+                <Link to={`/product/${product?._id}`}>
+                    <img className='w-full h-[170px] object-contain' alt='' src={`${backend_url}${product?.images && product.images[0]}`} />
                 </Link>
-                <Link className={`${styles.shop_name}`} to={"/"}>
+                <Link className={`${styles.shop_name}`} to={`/shop/preview/${product?.shop?._id}`}>
                     {product?.shop.name}
                 </Link>
-                <Link to={`/product/${product_name}`}>
+                <Link to={`/product/${product?._id}`}>
                     <h4 className='pb-3 font-[500] text-sm '>
                         {product.name.length > 40 ? product.name.slice(0, 40) + "..." : product.name}
                     </h4>
