@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { AiOutlineArrowRight, AiOutlineCamera, AiOutlineDelete } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { backend_url } from '../../server'
+import { backend_url, server } from '../../server'
 import styles from '../../styles/styles';
 import { Button } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { MdOutlineTrackChanges } from 'react-icons/md'
 import { updateUserInfo } from '../../redux/actions/user'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 
 
@@ -18,13 +20,29 @@ const ProfileContent = ({ active }) => {
   const [email, setEmail] = useState(user && user.email);
   const [phoneNumber, setPhoneNumber] = useState(user && user.phoneNumber);
   const [password, setPassword] = useState("");
+  const [avatar, setAvatar] = useState(null)
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const userInfo = { name, email, phoneNumber, password };
     dispatch(updateUserInfo(userInfo))
-
+  }
+  const handleImage = async (e) => {
+    const file = e.target.files[0];
+    setAvatar(file);
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+    await axios.put(`${server}/user/update-avatar`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      },
+      withCredentials: true
+    }).then((res) => {
+      window.location.reload()
+    }).catch((err) => {
+      toast.error(err)
+    })
   }
   return (
     <div className='w-full '>
@@ -40,7 +58,15 @@ const ProfileContent = ({ active }) => {
                 alt=""
               />
               <div className='w-[30px] h-[30px] bg-[#E3E9EE] rounded-full flex items-center justify-center cursor-pointer absolute bottom-[5px] right-[5px] '>
-                <AiOutlineCamera />
+                <input
+                  type="file"
+                  id="image"
+                  className="hidden"
+                  onChange={handleImage}
+                />
+                <label htmlFor="image">
+                  <AiOutlineCamera />
+                </label>
               </div>
             </div>
 
