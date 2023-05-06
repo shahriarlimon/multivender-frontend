@@ -3,7 +3,7 @@ import { AiOutlineCreditCard, AiOutlineLogin, AiOutlineMessage } from 'react-ico
 import { HiOutlineReceiptRefund, HiOutlineShoppingBag } from 'react-icons/hi';
 import { RxPerson } from 'react-icons/rx'
 import { useNavigate } from 'react-router-dom';
-import { MdOutlineTrackChanges } from 'react-icons/md';
+import { MdOutlineTrackChanges, MdPassword } from 'react-icons/md';
 import { TbAddressBook } from 'react-icons/tb';
 import axios from 'axios'
 import { server } from '../../server';
@@ -45,8 +45,8 @@ const ProfileSidebar = ({ active, setActive }) => {
                 <span className={`pl-3 ${active === 5 ? "text-[red]" : null} hidden 800px:block`} >Track Orders</span>
             </div>
             <div onClick={() => setActive(6)} className='flex items-center cursor-pointer w-full mb-8'>
-                <AiOutlineCreditCard color={active === 6 ? "red" : null} size={20} />
-                <span className={`pl-3 ${active === 6 ? "text-[red]" : null} hidden 800px:block`} >Payment Methods</span>
+                <MdPassword color={active === 6 ? "red" : null} size={20} />
+                <span className={`pl-3 ${active === 6 ? "text-[red]" : null} hidden 800px:block`} >Change Password</span>
             </div>
             <div onClick={() => setActive(7)} className='flex items-center cursor-pointer w-full mb-8'>
                 <TbAddressBook color={active === 7 ? "red" : null} size={20} />
