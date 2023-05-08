@@ -421,10 +421,13 @@ const ChangePassword = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success(res.data.success);
-        setOldPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
+        if (res.data.success) {
+          toast.success(res.data.message);
+          setOldPassword("");
+          setNewPassword("");
+          setConfirmPassword("");
+        }
+
       })
       .catch((error) => {
         toast.error(error.response.data.message);
