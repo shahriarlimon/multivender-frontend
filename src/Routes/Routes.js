@@ -13,6 +13,7 @@ import SellerActivationPage from "../pages/SellerActivationPage";
 import ShopLoginPage from "../pages/ShopLoginPage";
 import ShopHomePage from "../pages/ShopHomePage";
 import CheckoutPage from "../pages/CheckoutPage";
-import PaymentPage from "../pages/PaymentPage"
+import PaymentPage from "../pages/PaymentPage";
+import OrderSuccessPage from "../pages/OrderSuccessPage";
 
-export { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage, CheckoutPage, PaymentPage }
+export { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage, CheckoutPage, PaymentPage, OrderSuccessPage }
