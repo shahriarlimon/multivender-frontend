@@ -15,5 +15,8 @@ import ShopHomePage from "../pages/ShopHomePage";
 import CheckoutPage from "../pages/CheckoutPage";
 import PaymentPage from "../pages/PaymentPage";
 import OrderSuccessPage from "../pages/OrderSuccessPage";
+import ShopAllOrders from "../components/Shop/ShopAllOrders";
+import ShopOrderDetailsPage from "../pages/Shop/ShopOrderDetailsPage";
+import UserOrderDetailsPage from "../pages/UserOrderDetailsPage";
 
-export { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage, CheckoutPage, PaymentPage, OrderSuccessPage }
+export { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage, CheckoutPage, PaymentPage, OrderSuccessPage, ShopAllOrders, ShopOrderDetailsPage, UserOrderDetailsPage }
