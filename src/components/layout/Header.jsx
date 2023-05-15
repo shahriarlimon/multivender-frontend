@@ -19,6 +19,7 @@ import { RxCross1 } from 'react-icons/rx';
 const Header = ({ activeHeading }) => {
 
     const { isAuthenticated, user, loading } = useSelector((state) => state.user)
+    const { seller } = useSelector((state) => state.seller)
     const { cart } = useSelector((state) => state.cart);
     const { wishlist } = useSelector((state) => state.wishlist)
     const [searchTerms, setSearchTerms] = useState("");
@@ -91,9 +92,10 @@ const Header = ({ activeHeading }) => {
                                 ) : null}
                             </div>
                             <div className={`${styles.button}`}>
-                                <Link to="/shop-create">
+                                <Link to={`${seller ? "/dashboard" : "/shop-create"}`}>
                                     <h1 className="text-[#fff] flex items-center">
-                                        Become Seller <IoIosArrowForward className="ml-1" />
+                                        {seller ? "Go Dashboard" : "Become Seller"}{" "}
+                                        <IoIosArrowForward className="ml-1" />
                                     </h1>
                                 </Link>
                             </div>
@@ -255,9 +257,10 @@ const Header = ({ activeHeading }) => {
                         </div>
                         <Navbar active={activeHeading} />
                         <div className={`${styles.button} ml-4 !rounded-[4px]`}>
-                            <Link to="/shop-create">
+                            <Link to={`${seller ? "/dashboard" : "/shop-create"}`}>
                                 <h1 className="text-[#fff] flex items-center">
-                                    Become Seller <IoIosArrowForward className="ml-1" />
+                                    {seller ? "Go Dashboard" : "Become Seller"}{" "}
+                                    <IoIosArrowForward className="ml-1" />
                                 </h1>
                             </Link>
                         </div>

@@ -208,8 +208,15 @@ const ProductDetailsInfo = ({ product, products }) => {
                 </>) : null
             }
             {
-                active === 2 ? (<div className='w-full justify-center min-h-[40vh] flex items-center'>
-                    <p >No reviews yet</p>
+                active === 2 ? (<div className='w-full justify-center min-h-[40vh] flex flex-col items-center'>
+                    {
+                        product && product?.reviews?.map((review, index) => (<div className='w-full '>
+                            {review.comment}
+                        </div>))
+                    }
+                    {
+                        product?.reviews?.length === 0 && (<h5>No Reviews </h5>)
+                    }
                 </div>) : null
             }
             {active === 3 && (
