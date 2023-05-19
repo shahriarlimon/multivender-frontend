@@ -6,7 +6,7 @@ import { backend_url, server } from '../../server'
 import styles from '../../styles/styles';
 import { Button } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import { MdOutlineTrackChanges } from 'react-icons/md'
+import { MdOutlineTrackChanges, MdTrackChanges } from 'react-icons/md'
 import { deleteUserAddress, updatUserAddress, updateUserInfo } from '../../redux/actions/user'
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -161,19 +161,6 @@ const AllOrders = () => {
     dispatch(getAllUserOrders(user?._id))
   }, [dispatch, user])
 
-  /* const orders = [
-    {
-      _id: "7463hvbfbhfbrtr28820221",
-      orderItems: [
-        {
-          name: "Iphone 14 pro max",
-        },
-      ],
-      totalPrice: 120,
-      orderStatus: "Processing",
-    },
-  ]; */
-
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
 
@@ -247,18 +234,16 @@ const AllOrders = () => {
   </div>)
 }
 const AllRefundOrders = () => {
-  const orders = [
-    {
-      _id: "7463hvbfbhfbrtr28820221",
-      orderItems: [
-        {
-          name: "Iphone 14 pro max",
-        },
-      ],
-      totalPrice: 120,
-      orderStatus: "Processing",
-    },
-  ];
+  const { user } = useSelector((state) => state.user);
+  const { orders } = useSelector((state) => state.order);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllUserOrders(user?._id))
+  }, [dispatch, user])
+
+  const eligibleOrders = orders && orders.filter((item) => item.status === "Processing refund")
+
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
 
@@ -299,7 +284,7 @@ const AllRefundOrders = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/order/${params.id}`}>
+            <Link to={`/user/order/${params.id}`}>
               <Button>
                 <AiOutlineArrowRight size={20} />
               </Button>
@@ -310,13 +295,14 @@ const AllRefundOrders = () => {
     },
   ];
   const row = [];
-  orders &&
-    orders.forEach((item) => {
+
+  eligibleOrders &&
+  eligibleOrders.forEach((item) => {
       row.push({
-        id: item._id,
-        itemsQty: item.orderItems.length,
-        total: "US$ " + item.totalPrice,
-        status: item.orderStatus,
+        id: item?._id,
+        itemsQty: item?.cart?.length,
+        total: "US$ " + item?.totalPrice,
+        status: item?.status,
       });
     });
 
@@ -332,18 +318,14 @@ const AllRefundOrders = () => {
   </div>)
 }
 const TrackOrder = () => {
-  const orders = [
-    {
-      _id: "7463hvbfbhfbrtr28820221",
-      orderItems: [
-        {
-          name: "Iphone 14 pro max",
-        },
-      ],
-      totalPrice: 120,
-      orderStatus: "Processing",
-    },
-  ];
+  const { user } = useSelector((state) => state.user);
+  const { orders } = useSelector((state) => state.order);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllUserOrders(user?._id))
+  }, [dispatch, user])
+
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
 
@@ -384,9 +366,9 @@ const TrackOrder = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/order/${params.id}`}>
+            <Link to={`/user/track/order/${params.id}`}>
               <Button>
-                <MdOutlineTrackChanges size={20} />
+                <MdTrackChanges size={20} />
               </Button>
             </Link>
           </>
@@ -395,13 +377,14 @@ const TrackOrder = () => {
     },
   ];
   const row = [];
+
   orders &&
     orders.forEach((item) => {
       row.push({
-        id: item._id,
-        itemsQty: item.orderItems.length,
-        total: "US$ " + item.totalPrice,
-        status: item.orderStatus,
+        id: item?._id,
+        itemsQty: item?.cart?.length,
+        total: "US$ " + item?.totalPrice,
+        status: item?.status,
       });
     });
 

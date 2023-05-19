@@ -27,42 +27,18 @@ const UserOrderDetails = () => {
     }, [dispatch, user])
     const data = orders && orders?.find((item) => item?._id === id);
 
-    const orderUpdateHandler = async (e) => {
-        await axios
-            .put(
-                `${server}/order/update-order-status/${id}`,
-                {
-                    status,
-                },
-                { withCredentials: true }
-            )
-            .then((res) => {
-                toast.success("Order updated!");
-                navigate("/dashboard-orders");
-            })
-            .catch((error) => {
-                toast.error(error.response.data.message);
-            });
+    const refundHandler = async () => {
+        await axios.put(`${server}/order/order-refund/${id}`, {
+            status: "Processing refund"
+        }, { withCredentials: true },).then((res) => {
+            toast.success(res.data.message);
+            dispatch(getAllUserOrders(user._id));
+        }).catch((error) => {
+            toast.error(error.response.data.message);
+        })
     };
 
 
-    const refundOrderUpdateHandler = async (e) => {
-        await axios
-            .put(
-                `${server}/order/order-refund-success/${id}`,
-                {
-                    status,
-                },
-                { withCredentials: true }
-            )
-            .then((res) => {
-                toast.success("Order updated!");
-/*                 dispatch(getAllShopOrders(seller._id));
- */            })
-            .catch((error) => {
-                toast.error(error.response.data.message);
-            });
-    }
     const reviewHandler = async (e) => {
         await axios
             .put(
@@ -235,6 +211,12 @@ const UserOrderDetails = () => {
                         Status:{" "}
                         {data?.paymentInfo?.status ? data?.paymentInfo?.status : "Not Paid"}
                     </h4>
+                    <br />
+                    {
+                        data?.status === "Delivered" && <div onClick={() => refundHandler()} className={`${styles.button} text-white`}>
+                            Give a refund
+                        </div>
+                    }
                 </div>
             </div>
             <br />

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage, CheckoutPage, PaymentPage, OrderSuccessPage, ShopAllOrders, ShopOrderDetailsPage, UserOrderDetailsPage } from './Routes/Routes.js'
+import { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage, CheckoutPage, PaymentPage, OrderSuccessPage, ShopAllOrders, ShopOrderDetailsPage, UserOrderDetailsPage, TrackOrderPage } from './Routes/Routes.js'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from "react";
@@ -62,8 +62,8 @@ function App() {
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
         <Route path="/order/success" element={<ProtectedRoute><OrderSuccessPage /></ProtectedRoute>} />
-        <Route path="/user/order/:id" element={<ProtectedRoute><UserOrderDetailsPage  /></ProtectedRoute>} />
-
+        <Route path="/user/order/:id" element={<ProtectedRoute><UserOrderDetailsPage /></ProtectedRoute>} />
+        <Route path="/user/track/order/:id" element={<ProtectedRoute><TrackOrderPage /></ProtectedRoute>} />
         <Route path="/profile" element={
           <ProtectedRoute> <ProfilePage /> </ProtectedRoute>
         } />

@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/actions/cart';
 import { addToWishlist, removeFromWishlist } from '../../redux/actions/wishlist';
 import { toast } from 'react-toastify';
+import Ratings from '../Ratings/Ratings';
+import { getAllShopProducts } from '../../redux/actions/product';
 
 const ProductDetails = ({ product }) => {
-    console.log(product)
     const { products } = useSelector((state) => state.products);
+    console.log(products)
     const { cart } = useSelector((state) => state.cart)
     const { wishlist } = useSelector((state) => state.wishlist)
     const [count, setCount] = useState(1);
@@ -41,12 +43,23 @@ const ProductDetails = ({ product }) => {
             }
         }
 
-    }
+    };
+    const totalReviewsLength =
+        products &&
+        products.reduce((acc, product) => acc + product.reviews.length, 0);
 
+    const totalRatings =
+        products &&
+        products.reduce(
+            (acc, product) =>
+                acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
+            0
+        );
 
-    const handleMessageSubmit = () => {
+    const avg = totalRatings / totalReviewsLength || 0;
 
-    }
+    const averageRating = avg.toFixed(2);
+
     const removeFromWishlistHandler = (product) => {
         setClick(!click);
         dispatch(removeFromWishlist(product))
@@ -61,7 +74,13 @@ const ProductDetails = ({ product }) => {
         } else {
             setClick(false)
         }
-    }, [wishlist, product])
+        dispatch(getAllShopProducts(product?.shopId))
+    }, [wishlist, product, dispatch])
+
+    const handleMessageSubmit = () => {
+
+    }
+
     return (
         <div className='bg-white'>
             {
@@ -152,7 +171,7 @@ const ProductDetails = ({ product }) => {
                                         <Link to={`/shop/preview/${product?.shop?._id}`}>
                                             <h3 className={`${styles.shop_name} pb-1 pt-1`}>{product.shop.name}</h3>
                                         </Link>
-                                        <h5 className='pb-3 text-[15px]'>{/* ({product?.shop?.ratings}) */} 4/5 Ratings</h5>
+                                        <h5 className='pb-3 text-[15px]'> ({averageRating}/5) Ratings</h5>
                                     </div>
                                     <div onClick={() => handleMessageSubmit()} className={`${styles.button} !bg-[#6443d1] mt-4 !rounded !h-11`}>
                                         <span className='text-white flex items-center'>Send Message <AiOutlineMessage className='ml-1' /></span>
@@ -165,7 +184,7 @@ const ProductDetails = ({ product }) => {
                         </div>
 
                     </div>
-                    <ProductDetailsInfo products={products} product={product} />
+                    <ProductDetailsInfo averageRating={averageRating} totalReviewsLength={totalReviewsLength} products={products} product={product} />
                     <br />
                     <br />
 
@@ -175,7 +194,7 @@ const ProductDetails = ({ product }) => {
         </div>
     )
 }
-const ProductDetailsInfo = ({ product, products }) => {
+const ProductDetailsInfo = ({ product, products, totalReviewsLength, averageRating }) => {
     const [active, setActive] = useState(1);
 
     return (
@@ -208,10 +227,19 @@ const ProductDetailsInfo = ({ product, products }) => {
                 </>) : null
             }
             {
-                active === 2 ? (<div className='w-full justify-center min-h-[40vh] flex flex-col items-center'>
+                active === 2 ? (<div className='w-full justify-center min-h-[40vh] flex flex-col items-center py-3 overflow-y-scroll'>
                     {
-                        product && product?.reviews?.map((review, index) => (<div className='w-full '>
-                            {review.comment}
+                        product && product?.reviews?.map((review, index) => (<div className='w-full flex my-2 '>
+
+                            <img className='w-[50px] h-[50px] rounded-full' src={`${backend_url}/${review?.user?.avatar}`} alt='' />
+                            <div className='pl-2'>
+                                <div className='w-full flex items-center'>
+                                    <h5 className='pl-2 font-[500] mr-3'>{review?.user?.name}</h5>
+                                    <Ratings ratings={product?.ratings} />
+                                </div>
+                                <p>{review?.comment}</p>
+                            </div>
+
                         </div>))
                     }
                     {
@@ -232,7 +260,7 @@ const ProductDetailsInfo = ({ product, products }) => {
                                 <div className="pl-3">
                                     <h3 className={`${styles.shop_name}`}>{product.shop.name}</h3>
                                     <h5 className="pb-2 text-[15px]">
-                                        (4/5) Ratings
+                                        ({averageRating}/5) Ratings
                                     </h5>
                                 </div>
                             </div>
@@ -250,7 +278,7 @@ const ProductDetailsInfo = ({ product, products }) => {
                                 Total Products: <span className="font-[500]">{products && products.length}</span>
                             </h5>
                             <h5 className="font-[600] pt-3">
-                                Total Reviews: <span className="font-[500]">324</span>
+                                Total Reviews: <span className="font-[500]">{totalReviewsLength}</span>
                             </h5>
                             <Link to="/">
                                 <div
