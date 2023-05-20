@@ -6,12 +6,12 @@ import { backend_url, server } from '../../server'
 import styles from '../../styles/styles';
 import { Button } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import { MdOutlineTrackChanges, MdTrackChanges } from 'react-icons/md'
+import {  MdTrackChanges } from 'react-icons/md'
 import { deleteUserAddress, updatUserAddress, updateUserInfo } from '../../redux/actions/user'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { RxCross1 } from 'react-icons/rx';
-import { Country, getState, State } from 'country-state-city'
+import { Country, State } from 'country-state-city'
 import { getAllUserOrders } from '../../redux/actions/order'
 
 

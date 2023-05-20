@@ -8,7 +8,7 @@ import { loadUser } from "./redux/actions/user.js";
 import { loadSeller } from "./redux/actions/seller.js";
 import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
 import SellerProtectedRoute from "./Routes/SellerProtectedRoute.jsx";
-import { ShopAllCouponsPage, ShopAllEventsPage, ShopAllProductsPage, ShopCreateProductPage, ShopDashboardPage, ShopEventPage, ShopPreviewPage, } from "./Routes/ShopRoutes.jsx";
+import { ShopAllCouponsPage, ShopAllEventsPage, ShopAllProductsPage, ShopAllRefundsPage, ShopCreateProductPage, ShopDashboardPage, ShopEventPage, ShopPreviewPage, } from "./Routes/ShopRoutes.jsx";
 import { getAllProducts } from "./redux/actions/product.js";
 import { getAllEvents } from "./redux/actions/event.js";
 import { server } from "./server.js";
@@ -115,6 +115,12 @@ function App() {
             <ShopAllCouponsPage />
           </SellerProtectedRoute>
         } />
+        <Route path="/dashboard-refunds" element={
+          <SellerProtectedRoute>
+            <ShopAllRefundsPage />
+          </SellerProtectedRoute>
+        } />
+
       </Routes>
       <ToastContainer
         position="bottom-center"

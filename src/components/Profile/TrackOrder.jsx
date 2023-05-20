@@ -39,7 +39,7 @@ const TrackOrder = () => {
                 ) : data?.status === "Processing refund" ? (
                     <h1 className="text-[20px]">Your refund is processing!</h1>
                 ) : data?.status === "Refund Success" ? (
-                    <h1 className="text-[20px]">Your Refund is success!</h1>
+                    <h1 className="text-[20px]">Your Refund is processing successfully!</h1>
                 ) : null}
             </>
         </div>
