@@ -18,7 +18,7 @@ const AllRefundOrders = () => {
         dispatch(getAllShopOrders(seller?._id))
     }, [dispatch, seller, message])
 
-    const refundOrders = orders && orders.filter((order) => order.status === "Processing refund")
+    const refundOrders = orders && orders.filter((order) => order.status === "Processing refund" || order.status==="Refund Success")
     const handleDelete = (id) => {
         dispatch(deleteProduct(id))
 
