@@ -6,8 +6,8 @@ import { backend_url, server } from '../../server'
 import styles from '../../styles/styles';
 import { Button } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import {  MdTrackChanges } from 'react-icons/md'
-import { deleteUserAddress, updatUserAddress, updateUserInfo } from '../../redux/actions/user'
+import { MdTrackChanges } from 'react-icons/md'
+import { deleteUserAddress, loadUser, updatUserAddress, updateUserInfo } from '../../redux/actions/user'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { RxCross1 } from 'react-icons/rx';
@@ -52,7 +52,8 @@ const ProfileContent = ({ active }) => {
       },
       withCredentials: true
     }).then((res) => {
-      window.location.reload()
+      dispatch(loadUser());
+      toast.success("avatar updated successfully!")
     }).catch((err) => {
       toast.error(err)
     })
@@ -297,7 +298,7 @@ const AllRefundOrders = () => {
   const row = [];
 
   eligibleOrders &&
-  eligibleOrders.forEach((item) => {
+    eligibleOrders.forEach((item) => {
       row.push({
         id: item?._id,
         itemsQty: item?.cart?.length,

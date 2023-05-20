@@ -24,7 +24,7 @@ const DashboardMain = () => {
     }, [dispatch, seller, orders]);
     const totalEarningsWithoutTax = deliveredOrder && deliveredOrder.reduce((acc, item) => acc + item.totalPrice, 0)
     const serviceCharge = totalEarningsWithoutTax * 0.1
-    const availableBalance = totalEarningsWithoutTax - serviceCharge.toFixed(2);
+    const availableBalance = (totalEarningsWithoutTax - serviceCharge).toFixed(2);
 
     const columns = [
         { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
@@ -66,7 +66,7 @@ const DashboardMain = () => {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={`/dashboard/order/${params.id}`}>
+                        <Link to={`/order/${params.id}`}>
                             <Button>
                                 <AiOutlineArrowRight size={20} />
                             </Button>

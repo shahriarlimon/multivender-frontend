@@ -7,4 +7,5 @@ import ShopAllEventsPage from "../pages/Shop/ShopAllEventsPage";
 import ShopAllCouponsPage from "../pages/Shop/ShopAllCouponsPage";
 import ShopPreviewPage from "../pages/Shop/ShopPreviewPage";
 import ShopAllRefundsPage from "../pages/Shop/ShopAllRefundsPage";
-export { ShopDashboardPage, ShopCreateProductPage, ShopAllProductsPage, ShopEventPage, ShopAllEventsPage, ShopAllCouponsPage, ShopPreviewPage, ShopAllRefundsPage }
+import ShopSettingPage from "../pages/Shop/ShopSettingPage";
+export { ShopDashboardPage, ShopCreateProductPage, ShopAllProductsPage, ShopEventPage, ShopAllEventsPage, ShopAllCouponsPage, ShopPreviewPage, ShopAllRefundsPage, ShopSettingPage }

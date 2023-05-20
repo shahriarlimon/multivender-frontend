@@ -93,7 +93,7 @@ const DashboardSidebar = ({ active }) => {
         </Link>
       </div>
       <div className='w-full flex items-center p-4'>
-        <Link className='w-full flex items-center' to="/dashboard-settings">
+        <Link className='w-full flex items-center' to="/settings">
           <CiSettings size={30} color={`${active === 11 ? "crimson" : "#555"}`} />
           <h5 className={`800px:block hidden  pl-2 text-[18px] font-[400] ${active === 11 ? " text-[crimson]" : "text-[#555]"}`}>
             Settings
