@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage, CheckoutPage, PaymentPage, OrderSuccessPage, ShopAllOrders, ShopOrderDetailsPage, UserOrderDetailsPage, TrackOrderPage } from './Routes/Routes.js'
+import { LoginPage, SignupPage, ActivationPage, HomePage, ProductPage, BestSellingPage, EventPage, FAQPage, ProductDetailsPage, ProfilePage, ShopCreatePage, SellerActivationPage, ShopLoginPage, ShopHomePage, CheckoutPage, PaymentPage, OrderSuccessPage, ShopAllOrders, ShopOrderDetailsPage, UserOrderDetailsPage, TrackOrderPage, UserInboxPage } from './Routes/Routes.js'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { loadUser } from "./redux/actions/user.js";
 import { loadSeller } from "./redux/actions/seller.js";
 import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
 import SellerProtectedRoute from "./Routes/SellerProtectedRoute.jsx";
-import { ShopAllCouponsPage, ShopAllEventsPage, ShopAllProductsPage, ShopAllRefundsPage, ShopCreateProductPage, ShopDashboardPage, ShopEventPage, ShopPreviewPage, ShopSettingPage, } from "./Routes/ShopRoutes.jsx";
+import { ShopAllCouponsPage, ShopAllEventsPage, ShopAllProductsPage, ShopAllRefundsPage, ShopCreateProductPage, ShopDashboardPage, ShopEventPage, ShopInboxPage, ShopPreviewPage, ShopSettingPage, WithdrawMoneyPage, } from "./Routes/ShopRoutes.jsx";
 import { getAllProducts } from "./redux/actions/product.js";
 import { getAllEvents } from "./redux/actions/event.js";
 import { server } from "./server.js";
@@ -67,6 +67,9 @@ function App() {
         <Route path="/profile" element={
           <ProtectedRoute> <ProfilePage /> </ProtectedRoute>
         } />
+        <Route path="/inbox" element={
+          <ProtectedRoute> <UserInboxPage /> </ProtectedRoute>
+        } />
         <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
         <Route path="/shop-create" element={<ShopCreatePage />} />
         <Route path="/shop-login" element={<ShopLoginPage />} />
@@ -115,6 +118,11 @@ function App() {
             <ShopAllCouponsPage />
           </SellerProtectedRoute>
         } />
+        <Route path="/dashboard-withdraw-money" element={
+          <SellerProtectedRoute>
+            <WithdrawMoneyPage />
+          </SellerProtectedRoute>
+        } />
         <Route path="/dashboard-refunds" element={
           <SellerProtectedRoute>
             <ShopAllRefundsPage />
@@ -123,6 +131,11 @@ function App() {
         <Route path="/settings" element={
           <SellerProtectedRoute>
             <ShopSettingPage />
+          </SellerProtectedRoute>
+        } />
+        <Route path="/dashboard-messages" element={
+          <SellerProtectedRoute>
+            <ShopInboxPage />
           </SellerProtectedRoute>
         } />
 

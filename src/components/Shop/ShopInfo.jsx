@@ -8,15 +8,34 @@ import { getAllShopProducts } from '../../redux/actions/product';
 import Loader from '../layout/Loader';
 
 const ShopInfo = ({ isOwner }) => {
-    const { loading, seller } = useSelector((state) => state.seller);
+    const { seller } = useSelector((state) => state.seller);
     const [isLoading, setIsLoading] = useState(false)
     const { products } = useSelector((state) => state.products);
     const { id } = useParams();
-    const [data, setData] = useState(null)
+    const [data, setData] = useState(null);
+    const dispatch = useDispatch();
+
+
+    const totalReviewsLength =
+    products &&
+    products.reduce((acc, product) => acc + product.reviews.length, 0);
+
+    const totalRatings =
+    products &&
+    products.reduce(
+        (acc, product) =>
+            acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
+        0
+    );
+
+const avg = totalRatings / totalReviewsLength || 0;
+
+const averageRating = avg.toFixed(2);
 
 
     useEffect(() => {
-        setIsLoading(true)
+        dispatch(getAllShopProducts(seller?._id))
+        setIsLoading(true);
         axios.get(`${server}/shop/get-shop-info/${id}`).then((res) => {
             setIsLoading(false)
             setData(res.data.shop)
@@ -52,11 +71,11 @@ const ShopInfo = ({ isOwner }) => {
                     </div>
                     <div className='p-3'>
                         <h5 className='font-[600] '>Total Products</h5>
-                        <h4 className=' text-[#000000a6]'> 20</h4>
+                        <h4 className=' text-[#000000a6]'> {products?.length} </h4>
                     </div>
                     <div className='p-3'>
                         <h5 className='font-[600] '>Shop Ratings</h5>
-                        <h4 className=' text-[#000000a6]'> 4/5</h4>
+                        <h4 className=' text-[#000000a6]'> {averageRating}/5</h4>
                     </div>
                     <div className='p-3'>
                         <h5 className='font-[600] '>Joined On</h5>

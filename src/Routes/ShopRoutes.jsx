@@ -8,4 +8,6 @@ import ShopAllCouponsPage from "../pages/Shop/ShopAllCouponsPage";
 import ShopPreviewPage from "../pages/Shop/ShopPreviewPage";
 import ShopAllRefundsPage from "../pages/Shop/ShopAllRefundsPage";
 import ShopSettingPage from "../pages/Shop/ShopSettingPage";
-export { ShopDashboardPage, ShopCreateProductPage, ShopAllProductsPage, ShopEventPage, ShopAllEventsPage, ShopAllCouponsPage, ShopPreviewPage, ShopAllRefundsPage, ShopSettingPage }
+import WithdrawMoneyPage from "../pages/Shop/WithdrawMoneyPage";
+import ShopInboxPage from "../pages/Shop/ShopInboxPage";
+export { ShopDashboardPage, ShopCreateProductPage, ShopAllProductsPage, ShopEventPage, ShopAllEventsPage, ShopAllCouponsPage, ShopPreviewPage, ShopAllRefundsPage, ShopSettingPage, WithdrawMoneyPage,ShopInboxPage }

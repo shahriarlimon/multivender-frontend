@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { isValidElement, useEffect, useState } from 'react'
 import { AiFillHeart, AiFillStar, AiOutlineEye, AiOutlineHeart, AiOutlineShoppingCart, AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom'
 import styles from '../../../styles/styles';
@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { addToCart } from '../../../redux/actions/cart';
 import Ratings from '../../Ratings/Ratings';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, isEvent }) => {
     const dispatch = useDispatch();
     const { cart } = useSelector((state) => state.cart)
     const { wishlist } = useSelector((state) => state.wishlist)
@@ -64,7 +64,7 @@ const ProductCard = ({ product }) => {
             <div className='w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer '>
                 <div className='flex justify-end'>
                 </div>
-                <Link to={`/product/${product?._id}`}>
+                <Link to={`${isEvent === true ? `/product/${product?._id}?isEvent=true` : `/product/${product._id}`}`}>
                     <img className='w-full h-[170px] object-contain' alt='' src={`${backend_url}${product?.images && product.images[0]}`} />
                 </Link>
                 <Link className={`${styles.shop_name}`} to={`/shop/preview/${product?.shop?._id}`}>

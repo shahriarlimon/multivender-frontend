@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { AiFillHeart, AiOutlineHeart, AiOutlineMessage, AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../styles/styles';
-import { backend_url } from '../../server';
+import { backend_url, server } from '../../server';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/actions/cart';
 import { addToWishlist, removeFromWishlist } from '../../redux/actions/wishlist';
 import { toast } from 'react-toastify';
 import Ratings from '../Ratings/Ratings';
 import { getAllShopProducts } from '../../redux/actions/product';
+import axios from 'axios';
 
 const ProductDetails = ({ product }) => {
     const { products } = useSelector((state) => state.products);
-    console.log(products)
+    const { user, isAuthenticated } = useSelector((state) => state.user);
+    const { seller } = useSelector((state) => state.seller);
     const { cart } = useSelector((state) => state.cart)
     const { wishlist } = useSelector((state) => state.wishlist)
     const [count, setCount] = useState(1);
@@ -77,8 +79,19 @@ const ProductDetails = ({ product }) => {
         dispatch(getAllShopProducts(product?.shopId))
     }, [wishlist, product, dispatch])
 
-    const handleMessageSubmit = () => {
-
+    const handleMessageSubmit = async () => {
+        if (isAuthenticated) {
+            const groupTitle = product?._id + user?._id;
+            const userId = user._id;
+            const sellerId = product.shop._id;
+            await axios.post(`${server}/conversation/create-new-conversation`, { groupTitle, userId, sellerId }, { withCredentials: true }).then((res) => {
+                navigate(`/conversation/${res?.data?.conversation?._id}`)
+            }).catch((error) => {
+                toast.error(error.response.data.message)
+            })
+        } else {
+            toast.error("Please login to send message")
+        }
     }
 
     return (
