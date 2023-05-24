@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteProduct, getAllShopProducts } from '../../redux/actions/product';
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import Loader from '../layout/Loader';
-import { toast } from 'react-toastify'
-import { deleteEvent, getAllEvents } from '../../redux/actions/event';
+import { deleteEvent, getAllShopEvents } from '../../redux/actions/event';
 
 const AllEvents = () => {
     const dispatch = useDispatch();
@@ -15,7 +13,7 @@ const AllEvents = () => {
     const { seller } = useSelector((state) => state.seller)
 
     useEffect(() => {
-        dispatch(getAllEvents(seller._id))
+        dispatch(getAllShopEvents(seller?._id))
     }, [dispatch, seller, message])
     const handleDelete = (id) => {
         dispatch(deleteEvent(id))

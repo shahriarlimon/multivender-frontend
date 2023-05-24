@@ -12,13 +12,11 @@ import Ratings from '../../Ratings/Ratings';
 
 const ProductCard = ({ product, isEvent }) => {
     const dispatch = useDispatch();
-    const { cart } = useSelector((state) => state.cart)
     const { wishlist } = useSelector((state) => state.wishlist)
     const [click, setClick] = useState(false);
-    const [count, setCount] = useState(1);
     const [open, setOpen] = useState(false);
 
-    const incrementCount = () => {
+   /*  const incrementCount = () => {
         setCount(count + 1);
     };
 
@@ -26,7 +24,7 @@ const ProductCard = ({ product, isEvent }) => {
         if (count > 1) {
             setCount(count - 1);
         }
-    };
+    }; */
 
 
     const removeFromWishlistHandler = (product) => {
@@ -37,7 +35,7 @@ const ProductCard = ({ product, isEvent }) => {
         setClick(!click);
         dispatch(addToWishlist(product))
     }
-    const addToCartHandler = (id) => {
+ /*    const addToCartHandler = (id) => {
         const isItemExists = cart && cart.find((i) => i._id === id);
         if (isItemExists) {
             toast.error("Item already in cart!");
@@ -50,7 +48,7 @@ const ProductCard = ({ product, isEvent }) => {
                 toast.success("Item added to cart successfully!");
             }
         }
-    };
+    }; */
     useEffect(() => {
         if (wishlist && wishlist.find((i) => i._id === product._id)) {
             setClick(true)

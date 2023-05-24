@@ -5,21 +5,23 @@ import { server } from "../../../server";
 const CountDown = ({ data }) => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-  useEffect(() => {
+  /* useEffect(() => {
     const timer = setTimeout(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
 
     if (
-      typeof timeLeft?.days === 'undefined' &&
-      typeof timeLeft?.hours === 'undefined' &&
-      typeof timeLeft?.minutes === 'undefined' &&
-      typeof timeLeft?.seconds === 'undefined'
+      timeLeft &&
+      typeof timeLeft.days === 'undefined' &&
+      typeof timeLeft.hours === 'undefined' &&
+      typeof timeLeft.minutes === 'undefined' &&
+      typeof timeLeft.seconds === 'undefined'
     ) {
-      axios.delete(`${server}/event/delete-shop-event/${data?._id}`);
+      axios.delete(`${server}/eventt/delete-shop-event/${data?._id}`);
     }
+
     return () => clearTimeout(timer);
-  });
+  }, [timeLeft]); */ // Add timeLeft as a dependency to trigger the effect when it changes
 
   function calculateTimeLeft() {
     const difference = +new Date(data?.Finish_Date) - +new Date();
@@ -37,7 +39,7 @@ const CountDown = ({ data }) => {
     return timeLeft;
   }
 
-  const timerComponents = Object?.keys(timeLeft)?.map((interval) => {
+  const timerComponents = Object.keys(timeLeft).map((interval) => {
     if (!timeLeft[interval]) {
       return null;
     }
@@ -51,7 +53,7 @@ const CountDown = ({ data }) => {
 
   return (
     <div>
-      {timerComponents?.length ? (
+      {timerComponents.length ? (
         timerComponents
       ) : (
         <span className="text-[red] text-[25px]">Time's Up</span>

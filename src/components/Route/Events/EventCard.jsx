@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { addToCart } from '../../../redux/actions/cart';
 
 const EventCard = ({ active, data }) => {
+    console.log(data)
     const { cart } = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
@@ -49,7 +50,7 @@ const EventCard = ({ active, data }) => {
                     <span className='pr-3 font-[400] text-[17px] text-[#44a55e]'>120 sold out</span>
 
                 </div>
-                <CountDown />
+                <CountDown data={data} />
                 <br />
                 <div className="flex items-center">
                     <Link to={`/product/${data?._id}?isEvent=true`}>

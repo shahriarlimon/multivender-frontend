@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Header from '../components/layout/Header'
-import ProductCard from '../components/Route/ProductCart/ProductCard'
+import ProductCard from '../components/Route/ProductCard/ProductCard'
 import styles from '../styles/styles'
 import { useSelector } from 'react-redux'
 

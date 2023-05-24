@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/layout/Header'
-import ProductCard from '../components/Route/ProductCart/ProductCard'
-import { productData } from '../static/data'
+import ProductCard from '../components/Route/ProductCard/ProductCard'
 import styles from '../styles/styles'
 import { useSelector } from 'react-redux'
 

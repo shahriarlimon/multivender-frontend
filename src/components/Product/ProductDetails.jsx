@@ -14,7 +14,6 @@ import axios from 'axios';
 const ProductDetails = ({ product }) => {
     const { products } = useSelector((state) => state.products);
     const { user, isAuthenticated } = useSelector((state) => state.user);
-    const { seller } = useSelector((state) => state.seller);
     const { cart } = useSelector((state) => state.cart)
     const { wishlist } = useSelector((state) => state.wishlist)
     const [count, setCount] = useState(1);
@@ -85,7 +84,7 @@ const ProductDetails = ({ product }) => {
             const userId = user._id;
             const sellerId = product.shop._id;
             await axios.post(`${server}/conversation/create-new-conversation`, { groupTitle, userId, sellerId }, { withCredentials: true }).then((res) => {
-                navigate(`/conversation/${res?.data?.conversation?._id}`)
+                navigate(`/inbox?${res.data.conversation._id}`);
             }).catch((error) => {
                 toast.error(error.response.data.message)
             })

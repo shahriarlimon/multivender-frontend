@@ -4,21 +4,44 @@ import { RxCross1 } from 'react-icons/rx'
 import styles from '../../../styles/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllShopProducts } from '../../../redux/actions/product';
-import { backend_url } from '../../../server';
+import { backend_url, server } from '../../../server';
 import { addToCart } from '../../../redux/actions/cart';
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { addToWishlist, removeFromWishlist } from '../../../redux/actions/wishlist';
 
-const   ProductDetailsCard = ({ setOpen, product }) => {
+const ProductDetailsCard = ({ setOpen, product }) => {
     const { cart } = useSelector((state) => state.cart)
+    const { wishlist } = useSelector((state) => state.wishlist);
+    const { products } = useSelector((state) => state.products);
+    const { user, isAuthenticated } = useSelector((state) => state.user)
     const [count, setCount] = useState(1);
     const [click, setClick] = useState(false);
-    const [select, setSelect] = useState(false);
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getAllShopProducts(product && product.shop._id));
-    }, [dispatch, product])
+    const navigate = useNavigate();
 
-    const handleMessageSubmit = () => {
+    useEffect(() => {
+        if (wishlist && wishlist.find((i) => i._id === product._id)) {
+            setClick(true);
+        } else {
+            setClick(false);
+        }
+    }, [wishlist, product])
+
+    const handleMessageSubmit = async () => {
+        if (isAuthenticated) {
+            const groupTitle = product?._id + user?._id;
+            const userId = user?._id;
+            const sellerId = product?.shop?._id;
+            await axios.post(`${server}/conversation/create-new-conversation`, { groupTitle, userId, sellerId }, { withCredentials: true }).then((res) => {
+                navigate(`/inbox?${res?.data?.conversation._id}`);
+            }).catch((error) => {
+                toast.error(error.response.data.message)
+            })
+        } else {
+            toast.error("Please login to send message")
+        }
 
     }
     const addToCartHandler = (id) => {
@@ -45,7 +68,31 @@ const   ProductDetailsCard = ({ setOpen, product }) => {
     const incrementCount = () => {
         setCount(count + 1);
     };
-    
+    const totalReviewsLength =
+        products &&
+        products.reduce((acc, product) => acc + product.reviews.length, 0);
+
+    const totalRatings =
+        products &&
+        products.reduce(
+            (acc, product) =>
+                acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
+            0
+        );
+
+    const avg = totalRatings / totalReviewsLength || 0;
+
+    const averageRating = avg.toFixed(2);
+
+    const removeFromWishlistHandler = (product) => {
+        setClick(!click);
+        dispatch(removeFromWishlist(product))
+    }
+    const addToWishlistHandler = (product) => {
+        setClick(!click);
+        dispatch(addToWishlist(product))
+    }
+
     return (
         <div className='bg-white '>
             {
@@ -58,14 +105,14 @@ const   ProductDetailsCard = ({ setOpen, product }) => {
                                 <div className='flex'>
                                     <img className='w-[50px] h-[50px] rounded-full mr-2' src={`${backend_url}${product?.shop?.avatar}`} alt='' />
                                     <div>
-                                        <h3 className={`${styles.shop_name}`}>{product.shop.name}</h3>
-                                        <h5 className="pb-3 text-[15px]">({product.shop.ratings}) Ratings</h5>
+                                        <h3 className={`${styles.shop_name}`}>{product?.shop.name}</h3>
+                                        <h5 className="pb-3 text-[15px]">({averageRating}/5) Ratings</h5>
                                     </div>
                                 </div>
                                 <div onClick={handleMessageSubmit} className={`${styles.button} bg-black mt-4 rounded-[4px] h-11`}>
                                     <span className='text-white text-sm flex items-center'>Send Message <AiOutlineMessage className='ml-1' /></span>
                                 </div>
-                                <h5 className='text-[16px] text-[red] mt-4'>({product.total_sold}) Sold out</h5>
+                                <h5 className='text-[16px] text-[red] mt-4'>({product?.sold_out}) Sold out</h5>
 
                             </div>
                             <div className='w-full 800px:w-[50%] pt-5 pl-[5px] pr-[5px] '>
@@ -96,7 +143,7 @@ const   ProductDetailsCard = ({ setOpen, product }) => {
                                             <AiFillHeart
                                                 size={30}
                                                 className="cursor-pointer"
-                                                onClick={() => setClick(!click)}
+                                                onClick={() => removeFromWishlistHandler(product)}
                                                 color={click ? "red" : "#333"}
                                                 title="Remove from wishlist"
                                             />
@@ -104,7 +151,7 @@ const   ProductDetailsCard = ({ setOpen, product }) => {
                                             <AiOutlineHeart
                                                 size={30}
                                                 className="cursor-pointer"
-                                                onClick={() => setClick(!click)}
+                                                onClick={() => addToWishlistHandler(product)}
                                                 color={click ? "red" : "#333"}
                                                 title="Add to wishlist"
                                             />
