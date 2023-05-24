@@ -6,8 +6,6 @@ import ProductDetailsCard from '../ProductDetailsCard/ProductDetailsCard';
 import { backend_url } from '../../../server';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist, removeFromWishlist } from '../../../redux/actions/wishlist';
-import { toast } from 'react-toastify';
-import { addToCart } from '../../../redux/actions/cart';
 import Ratings from '../../Ratings/Ratings';
 
 const ProductCard = ({ product, isEvent }) => {
@@ -16,15 +14,15 @@ const ProductCard = ({ product, isEvent }) => {
     const [click, setClick] = useState(false);
     const [open, setOpen] = useState(false);
 
-   /*  const incrementCount = () => {
-        setCount(count + 1);
-    };
-
-    const decrementCount = () => {
-        if (count > 1) {
-            setCount(count - 1);
-        }
-    }; */
+    /*  const incrementCount = () => {
+         setCount(count + 1);
+     };
+ 
+     const decrementCount = () => {
+         if (count > 1) {
+             setCount(count - 1);
+         }
+     }; */
 
 
     const removeFromWishlistHandler = (product) => {
@@ -35,20 +33,20 @@ const ProductCard = ({ product, isEvent }) => {
         setClick(!click);
         dispatch(addToWishlist(product))
     }
- /*    const addToCartHandler = (id) => {
-        const isItemExists = cart && cart.find((i) => i._id === id);
-        if (isItemExists) {
-            toast.error("Item already in cart!");
-        } else {
-            if (product.stock < 1) {
-                toast.error("Product stock limited!");
-            } else {
-                const cartData = { ...product, qty: count };
-                dispatch(addToCart(cartData));
-                toast.success("Item added to cart successfully!");
-            }
-        }
-    }; */
+    /*    const addToCartHandler = (id) => {
+           const isItemExists = cart && cart.find((i) => i._id === id);
+           if (isItemExists) {
+               toast.error("Item already in cart!");
+           } else {
+               if (product.stock < 1) {
+                   toast.error("Product stock limited!");
+               } else {
+                   const cartData = { ...product, qty: count };
+                   dispatch(addToCart(cartData));
+                   toast.success("Item added to cart successfully!");
+               }
+           }
+       }; */
     useEffect(() => {
         if (wishlist && wishlist.find((i) => i._id === product._id)) {
             setClick(true)
@@ -86,9 +84,9 @@ const ProductCard = ({ product, isEvent }) => {
 
                         </div>
                         <span className='font-[400] text-[17px] text-[#68d284]'>
-                            {
-                                product?.sold_out
-                            } sold
+                            <span className="font-[400] text-[17px] text-[#68d284]">
+                                {product?.sold_out} sold
+                            </span>
                         </span>
 
                     </div>

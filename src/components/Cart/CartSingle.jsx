@@ -19,7 +19,7 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
         quantityChangeHandler(updateCartData)
     }
     return (
-        <div className="border-b px-3 py-2">
+        <div className="border-b p-4">
             <div className="w-full flex items-center">
                 <div>
                     <div
@@ -37,7 +37,7 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
                     </div>
                 </div>
                 <img src={`${backend_url}${data?.images[0]}`} alt=""
-                    className="w-[80px] h-[80px] ml-2"
+                    className="w-[100px] h-min ml-2 mr-2 rounded-[5px]"
                 />
                 <div className="pl-[5px]">
                     <h1>{data?.name}</h1>
