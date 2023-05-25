@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addToCart } from '../../../redux/actions/cart';
+import { backend_url } from '../../../server';
 
 const EventCard = ({ active, data }) => {
-    console.log(data)
     const { cart } = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
@@ -28,26 +28,21 @@ const EventCard = ({ active, data }) => {
     return (
         <div className={`w-full block bg-white rounded-lg ${active ? "unset" : "mb-12"} lg:flex p-2`}>
             <div className='w-full lg:w-[50%]  m-auto'>
-                <img alt='' src="https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg" className='' />
+                <img src={`${backend_url}${data?.images[0]}`} alt="" />
             </div>
             <div className='w-full lg:w-[50%] flex flex-col justify-center'>
-                <h2 className={`${styles.productTitle}`}>
-                    Iphone 14pro max 8/256gb
-
-                </h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam mollitia, vel repellendus architecto assumenda eveniet molestias vitae ipsa expedita in laboriosam labore consequuntur voluptatibus explicabo! Ipsum laboriosam temporibus reprehenderit consequuntur!
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam mollitia, vel repellendus architecto assumenda eveniet molestias vitae ipsa expedita in laboriosam labore consequuntur voluptatibus explicabo! Ipsum laboriosam temporibus reprehenderit consequuntur
-                </p>
+                <h2 className={`${styles.productTitle}`}>{data?.name}</h2>
+                <p>{data?.description}</p>
                 <div className='flex py-2 justify-between'>
                     <div className='flex'>
                         <h5 className='font-[500] text-[18px] text-[#d55b45] pr-3 line-through '>
-                            1099$
+                            {data?.originalPrice}$
                         </h5>
                         <h5 className='font-bold text-[20px] text-[#333] font-Roboto'>
-                            999$
+                            {data?.discountPrice}$
                         </h5>
                     </div>
-                    <span className='pr-3 font-[400] text-[17px] text-[#44a55e]'>120 sold out</span>
+                    <span className='pr-3 font-[400] text-[17px] text-[#44a55e]'>  {data?.sold_out} sold</span>
 
                 </div>
                 <CountDown data={data} />
