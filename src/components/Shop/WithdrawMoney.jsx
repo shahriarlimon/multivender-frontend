@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RxCross1 } from "react-icons/rx";
 import axios from "axios";
-import { server } from "../../server";
 import { toast } from "react-toastify";
 import { AiOutlineDelete } from "react-icons/ai";
 import { getAllShopOrders } from "../../redux/actions/order";
-import styles from "../../styles/styles";
+import { server } from "../../server";
 import { loadSeller } from "../../redux/actions/seller";
+import styles from "../../styles/styles";
 
 const WithdrawMoney = () => {
   const [open, setOpen] = useState(false);
@@ -26,7 +26,7 @@ const WithdrawMoney = () => {
 
   useEffect(() => {
     dispatch(getAllShopOrders(seller._id));
-  }, [dispatch]);
+  }, [dispatch, seller]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,7 +99,7 @@ const WithdrawMoney = () => {
     }
   };
 
-  const availableBalance = seller?.availableBalance?.toFixed(2);
+  const availableBalance = seller?.availableBalance.toFixed(2);
 
   return (
     <div className="w-full h-[90vh] p-8">
@@ -117,9 +117,8 @@ const WithdrawMoney = () => {
       {open && (
         <div className="w-full h-screen z-[9999] fixed top-0 left-0 flex items-center justify-center bg-[#0000004e]">
           <div
-            className={`w-[95%] 800px:w-[50%] bg-white shadow rounded ${
-              paymentMethod ? "h-[80vh] overflow-y-scroll" : "h-[unset]"
-            } min-h-[40vh] p-3`}
+            className={`w-[95%] 800px:w-[50%] bg-white shadow rounded ${paymentMethod ? "h-[80vh] overflow-y-scroll" : "h-[unset]"
+              } min-h-[40vh] p-3`}
           >
             <div className="w-full flex justify-end">
               <RxCross1
@@ -276,11 +275,11 @@ const WithdrawMoney = () => {
                         <h5>
                           Account Number:{" "}
                           {"*".repeat(
-                            seller?.withdrawMethod.bankAccountNumber.length - 3
+                            seller?.withdrawMethod?.bankAccountNumber.length - 3
                           ) +
-                            seller?.withdrawMethod.bankAccountNumber.slice(-3)}
+                            seller?.withdrawMethod?.bankAccountNumber.slice(-3)}
                         </h5>
-                        <h5>Bank Name: {seller?.withdrawMethod.bankName}</h5>
+                        <h5>Bank Name: {seller?.withdrawMethod?.bankName}</h5>
                       </div>
                       <div className="800px:w-[50%]">
                         <AiOutlineDelete
