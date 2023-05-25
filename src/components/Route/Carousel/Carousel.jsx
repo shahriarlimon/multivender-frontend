@@ -51,7 +51,7 @@ const Carousel = () => {
         slideRef.current.classList.add("fade-anim");
     };
     return (
-        <div ref={slideRef} className="w-full select-none relative">
+        <div ref={slideRef} className="w-full select-none relative overflow-hidden">
             <div className="aspect-w-16 aspect-h-9">
                 <img src={featuredProducts[currentIndex]} alt="" />
             </div>
