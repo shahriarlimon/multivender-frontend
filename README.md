@@ -1,70 +1,55 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# [E-SHOP](https://e-shop-35f19-e7e98.web.app/)
 
-## Available Scripts
+The Multivendor eShop is a full-stack e-commerce website built using the MERN (MongoDB, Express.js, React.js, Node.js) stack. The website allows buyers to register, browse and purchase products from different sellers, while sellers can register, upload products, manage their inventory, and communicate with buyers. The website also includes payment integration with Stripe and PayPal, a review system for buyers, and server-side hosting on Render with frontend hosting on Firebase.
 
-In the project directory, you can run:
 
-### `npm start`
+### * KEY FEATURES
+### Buyers Features
+- User Registration: Buyers can register an account on the website.
+- Browse and Search: Buyers can browse through various products listed by different sellers and search for specific products using keywords.
+- Shopping Cart: Buyers can add products to their cart and proceed to checkout.
+- Payment Integration: The website integrates with Stripe and PayPal for secure online payments.
+- Order Tracking: Buyers can track the status of their orders.
+- Product Reviews: After receiving the ordered products, buyers can leave reviews and ratings for the purchased items.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Sellers Features
+- Seller Registration: Sellers can register an account and create a seller profile.
+- Product Management: Sellers can upload new products, update existing products, and manage their inventory.
+- Discount Management: Sellers can offer discounts on their products.
+- Order Management: Sellers can view and manage orders placed for their products.
+- Real-time Communication: Sellers can chat with buyers in real-time to provide support and answer questions.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Key Technologies Used
+### frontend
+- React: JavaScript library for building user interfaces.
+- Tailwind CSS: Utility-first CSS framework for styling the frontend.
+- Firebase: Hosting platform for frontend deployment.
 
-### `npm run build`
+### backend
+- Node.js: JavaScript runtime for running server-side code.
+- Express.js: Web application framework for building the backend server.
+- MongoDB: NoSQL database for storing product, user, and order data.
+- Mongoose: MongoDB object modeling for Node.js.
+- Render: Server-side hosting platform for deploying the backend.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Authentication and Authorization:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- JSON Web Tokens (JWT): For user authentication and authorization.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Payment Integration:
 
-### `npm run eject`
+- Stripe: Payment processing platform for secure online payments.
+- PayPal: Payment gateway for accepting payments from buyers.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Real-time Communication:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Socket.IO: Library for enabling real-time bidirectional communication between buyers and sellers.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

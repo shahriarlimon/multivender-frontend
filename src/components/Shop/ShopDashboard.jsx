@@ -7,8 +7,8 @@ const ShopDashboard = () => {
     return (
         <div>
             <DashboardHeader />
-            <div className='w-full flex items-center justify-between'>
-                <div className='800px:w-[330px] w-[80px]'>
+            <div className='w-full flex  justify-between'>
+                <div className='800px:w-[330px] w-[80px] mt-3'>
                     <DashboardSidebar active={1} />
                 </div>
                 <DashboardMain />

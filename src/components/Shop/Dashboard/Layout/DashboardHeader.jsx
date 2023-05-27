@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { BiMessageSquareDetail } from 'react-icons/bi';
 import { backend_url } from '../../../../server';
+import logo from '../../../../Assets/Logo/eshoplogo.png'
 
 const DashboardHeader = () => {
     const { seller } = useSelector((state) => state.seller)
@@ -14,7 +15,8 @@ const DashboardHeader = () => {
         <div className='w-full h-[80px] bg-white shadow sticky top-0 left-0 z-30 flex justify-between items-center px-4'>
             <div>
                 <Link to="/">
-                    <img alt='' src='https://shopo.quomodothemes.website/assets/images/logo.svg' />
+                <img alt='' className='h-[83px] w-[90px] object-cover'
+                                        src={logo}/>
                 </Link>
             </div>
             <div className='flex items-center'>

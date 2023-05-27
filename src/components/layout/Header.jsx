@@ -15,6 +15,7 @@ import Cart from '../Cart/Cart';
 import WishList from '../WishList/WishList';
 import { RxCross1 } from 'react-icons/rx';
 import Wishlist from '../WishList/WishList';
+import logo from "../../Assets/Logo/eshoplogo.png"
 
 
 const Header = ({ activeHeading }) => {
@@ -59,8 +60,9 @@ const Header = ({ activeHeading }) => {
                         <div className='hidden 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between'>
                             <div>
                                 <Link to="/">
-                                    <img
-                                        src="https://shopo.quomodothemes.website/assets/images/logo.svg"
+                                    <img className='h-[83px] w-[90px] object-cover'
+                                        src={logo}
+                                        /* src="https://shopo.quomodothemes.website/assets/images/logo.svg" */
                                         alt=""
                                     />
                                 </Link>
@@ -196,8 +198,9 @@ const Header = ({ activeHeading }) => {
                     <div>
                         <Link to="/">
                             <img
-                                className='mt-3 cursor-pointer'
-                                src="https://shopo.quomodothemes.website/assets/images/logo.svg"
+                                className='mb-3 cursor-pointer w-[65px] h-[58px] object-cover'
+                                src={logo}
+                              /*   src="https://shopo.quomodothemes.website/assets/images/logo.svg" */
                                 alt=""
                             />
                         </Link>

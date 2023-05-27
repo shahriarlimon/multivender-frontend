@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import socketIO from "socket.io-client";
@@ -10,7 +9,7 @@ import { TfiGallery } from "react-icons/tfi";
 import { backend_url, server } from "../server";
 import Header from "../components/layout/Header";
 import styles from "../styles/styles";
-const ENDPOINT = "http://localhost:4000";
+const ENDPOINT = "https://eshop-socket.onrender.com/";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 const UserInboxPage = () => {
@@ -311,7 +310,7 @@ const MessageList = ({
         <p className="text-[16px] text-[#000c]">
           {data?.lastMessageId !== userData?._id
             ? "You:"
-            : userData?.name.split(" ")[0] + ": "}{" "}
+            : userData?.name?.split(" ")[0] + ": "}{" "}
           {data?.lastMessage}
         </p>
       </div>
@@ -370,10 +369,10 @@ const SellerInbox = ({
                   alt=""
                 />
               )}
-              {item.images && (
+              {item?.images && (
                 <img
                 alt=""
-                  src={`${backend_url}${item.images}`}
+                  src={`${backend_url}${item?.images}`}
                   className="w-[300px] h-[300px] object-cover rounded-[10px] ml-2 mb-2"
                 />
               )}

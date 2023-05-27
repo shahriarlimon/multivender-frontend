@@ -7,6 +7,7 @@ import {
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { footercompanyLinks, footerProductLinks, footerSupportLinks } from "../../static/data";
+import logo from '../../Assets/Logo/eshoplogo.png'
 
 const Footer = () => {
   return (
@@ -33,9 +34,11 @@ const Footer = () => {
       <div className="grid grid-cols-1 sm:gird-cols-3 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-16 sm:text-center">
         <ul className="px-5 text-center sm:text-start flex sm:block flex-col items-center">
           <img
-            src="https://shopo.quomodothemes.website/assets/images/logo.svg"
+          className="w-[120px] h-[100px] object-cover"
+          src={logo}
+           /*  src="https://shopo.quomodothemes.website/assets/images/logo.svg" */
             alt=""
-            style={{ filter: "brightness(0) invert(1)" }}
+           /*  style={{ filter: "brightness(0) invert(1)" }} */
           />
           <br />
           <p>The home and elements needeed to create beatiful products.</p>

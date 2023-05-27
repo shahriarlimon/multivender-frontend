@@ -23,7 +23,7 @@ function ActivationPage() {
     return (
         <div className='w-full h-screen flex justify-center items-center'>
             {
-                error ? (<p>Your token is expired</p>) : (<p> Your account has been created successfully</p>)
+                error ? (<p>Your token is expired</p>) : (<p> Your account has been created successfully.Now please login with your credentials.</p>)
             }
 
         </div>
